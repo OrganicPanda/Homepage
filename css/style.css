@@ -1,0 +1,8 @@
+body {
+	font-family: 'Lobster', cursive;
+	font-size: 4em;
+	text-rendering: optimizeLegibility;
+	background-color: #EA3556;
+	color: #61D2D6;
+	text-shadow: #ED146F 2px 2px, #61D2D6 3px 3px;
+}
