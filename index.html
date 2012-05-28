@@ -11,6 +11,10 @@
 		<meta name="author" content="OrganicPanda">
 		
 		<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+		<!--[if lte IE 8]>
+			<link rel="stylesheet" href="lib/leaflet/leaflet.ie.css" />
+		<![endif]-->
 		<link href="css/style.css" rel="stylesheet">
 		
 		<link rel="shortcut icon" href="images/op.ico">
@@ -18,9 +22,9 @@
     
 	</head>
 	
-	<!--[if lt IE 7]> <body id="{{ body_id }}" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-	<!--[if IE 7]>    <body id="{{ body_id }}" class="lt-ie9 lt-ie8"> <![endif]-->
-	<!--[if IE 8]>    <body id="{{ body_id }}" class="lt-ie9"> <![endif]-->
+	<!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+	<!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+	<!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
 	<!--[if gt IE 8]><!--><body><!--<![endif]-->
 
 		<div id="content">
@@ -28,6 +32,31 @@
 			<h1>OrganicPanda</h1>
 	
 	    </div>
+		<div id="map">
+	
+	    </div>
+		
+		<script src="lib/leaflet/leaflet.js"></script>
+		<script>
+			// initialize the map on the "map" div
+			var map = new L.Map('map');
+
+			// create a CloudMade tile layer (or use other provider of your choice)
+			var cloudmade = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: 'Map data © OpenStreetMap contributors',
+				maxZoom: 18
+			});
+
+			// add the CloudMade layer to the map set the view to a given center and zoom
+			map.addLayer(cloudmade).setView(new L.LatLng(51.505, -0.09), 13);
+
+			// create a marker in the given location and add it to the map
+			var marker = new L.Marker(new L.LatLng(51.5, -0.09));
+			map.addLayer(marker);
+
+			// attach a given HTML content to the marker and immediately open it
+			marker.bindPopup("A pretty CSS3 popup.<br />Easily customizable.").openPopup();
+		</script>
 
 	</body>
 </html>
