@@ -11,7 +11,6 @@
 		<meta name="author" content="OrganicPanda">
 		
 		<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="lib/leaflet/leaflet.css" />
 		<!--[if lte IE 8]>
 			<link rel="stylesheet" href="lib/leaflet/leaflet.ie.css" />
 		<![endif]-->
@@ -32,30 +31,14 @@
 			<h1>OrganicPanda</h1>
 	
 	    </div>
-		<div id="map">
-	
-	    </div>
+		<div id="map"></div>
 		
-		<script src="lib/leaflet/leaflet.js"></script>
+		<script type="text/javascript" src="lib/modestmaps/modestmaps.js"></script>
+		<script type="text/javascript" src="lib/modestmaps/tile.stamen.js"></script>
 		<script>
-			// initialize the map on the "map" div
-			var map = new L.Map('map');
-
-			// create a CloudMade tile layer (or use other provider of your choice)
-			var cloudmade = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: 'Map data © OpenStreetMap contributors',
-				maxZoom: 18
-			});
-
-			// add the CloudMade layer to the map set the view to a given center and zoom
-			map.addLayer(cloudmade).setView(new L.LatLng(51.505, -0.09), 13);
-
-			// create a marker in the given location and add it to the map
-			var marker = new L.Marker(new L.LatLng(51.5, -0.09));
-			map.addLayer(marker);
-
-			// attach a given HTML content to the marker and immediately open it
-			marker.bindPopup("A pretty CSS3 popup.<br />Easily customizable.").openPopup();
+			var layer = new MM.StamenTileLayer("toner");
+			var map = new MM.Map("map", layer);
+			map.setCenterZoom(new MM.Location(50.82253, -0.137163), 12);
 		</script>
 
 	</body>
