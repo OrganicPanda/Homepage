@@ -1,31 +1,53 @@
-html, body, #content, #map {
-	margin: 0;
-	padding: 0;
-}
-body {
-	font-family: 'Lobster', cursive;
-	font-size: 4em;
-	text-rendering: optimizeLegibility;
-	background-color: #000000;
-	color: #ffffff;
-	text-shadow: -1px -1px #CDCDCD, 2px 2px #000000, 3px 3px #FFFFFF;
-	position: relative;
-	z-index: 0;
-}
-#content, #map {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 8em;
-}
-#map {
-	z-index: 1;
-}
-#content {
-	z-index: 2;
-}
-#content h1 {
-	margin: 0.2em;
-	padding: 0;
-}
+/* Utils */
+
+	/* Responsive images */
+	img { max-width: 100%; }
+
+/* Main Layout */
+
+	#article {
+		width: 62%;
+		float: left;
+		margin-right: 2%;
+	}
+		
+	#aside {
+		width: 33%;
+		float: right;
+		margin-bottom: 3%;
+	}
+	
+/* Modules */
+	
+	.feature { 
+		width: 80%;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+/* Type */
+	
+	#header  h1 { 
+		font-size: 6em;
+		line-height: 0;
+	}
+	
+/* Colour + Texture */
+
+	/* 	http://www.colourlovers.com/fashion/trends/street-fashion/7888/Color_Blocking
+		pink = DD577A, beige = FFF0CF, orange = FE5A27, blue = 49AEC0, black = 131723 */
+	body { 
+		background-color: #49AEC0; 
+		color: #131723;
+	}
+	
+	/* http://mothereffingtextshadow.com/ */
+	#header { text-shadow: hsl(0,0%,100%) -1px 1px, hsl(0,0%,100%) -2px 2px, hsl(0,0%,100%) -3px 3px, hsl(0,0%,100%) -4px 4px; }
+
+	#article { background-color: #cecece; }
+	
+	/* <= 1000px */
+	@media all and (max-width: 1000px) {
+	}
+	
+	#aside { background-color: #efefef; }
