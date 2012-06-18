@@ -51,5 +51,49 @@
 	
 	    </div>
 
+		<script>
+		
+			var elem = document.querySelector('h1');
+			var shadows = [];
+			
+			var GetPointAtAngle = function(ctr, r, ang) {
+				return { 'X' : ctr.X + (r * Math.cos(ang)), 'Y' : ctr.Y - (r * Math.sin(ang))};
+			}
+			
+			var GetAngleAtPoint = function(pt, ctr) {
+				var ang = Math.atan2(pt.Y - ctr.Y, pt.X - ctr.X);
+				return ang;
+			}
+			
+			// 1,1
+			// 1000,1000
+			
+			var center = { 'X' : 1, 'Y' : 1000 };
+			var angle = Math.PI / 2;
+			var anglestep = 1000;
+			var radius = 1000;
+			
+			for (var i = anglestep; i >= 0; i--) {
+				
+				radius = radius - 0.9;
+				
+				var currentangle = (angle / anglestep) * i;
+				
+				var pointatangle = GetPointAtAngle(center, radius, currentangle);
+			
+				console.log(i, 'currentangle: ', currentangle, 'pointatangle: ', pointatangle);
+			
+				shadows.push(pointatangle.X + 'px ' + pointatangle.Y + 'px 0 #' + (
+					(i % 3 == 0) ? 'ff0000' : 
+					(i % 2 == 0) ? '00ff00' : '0000ff'
+				));
+			}
+			
+			console.log('shadows: ', shadows.join(', '));
+			
+			elem.style.textShadow = shadows.join(', ');
+		
+		</script>
+		
 	</body>
 </html>
