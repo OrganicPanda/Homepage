@@ -10,22 +10,30 @@
 		<meta name="description" content="OrganicPanda - The home of OrganicPanda">
 		<meta name="author" content="OrganicPanda">
 		
-		<link href="lib/normalize/normalize.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
+		<link href="css/organicpanda.css" rel="stylesheet">
 		
 		<link rel="shortcut icon" href="images/op.ico">
 		<link rel="apple-touch-icon" href="images/apple-op.png">
-    
+    	
+		<script>
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-6779453-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+	
 	</head>
 	
-	<!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-	<!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
-	<!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
-	<!--[if gt IE 8]><!--><body><!--<![endif]-->
+	<body>
 
-		<div id="header" class="feature">
-	
-			<img src="images/op.png">
+		<div id="header">
 	
 			<h1>OrganicPanda</h1>
 	
@@ -33,67 +41,66 @@
 		
 		<div id="page">
 	
-			<div id="article">
-	
-				<h1>Content</h1>
-			
-				<p>This is the main section</p>
+			<div class="panda">
 		
-			</div>
+				<div class="sizer"></div>
+		
+				<div class="group head">
 						
-			<div id="aside">
-	
-				<h1>Links</h1>
-				
-				<p>This is the links section</p>
-		
+					<div class="piece body"></div>
+					<div class="group face">
+						<div class="piece left-eye"></div>
+						<div class="piece right-eye"></div>
+						<div class="group nose">
+							<div class="piece colour"></div>
+							<div class="piece mask"></div>
+						</div>
+					</div>
+					<div class="group left-ear">
+						<div class="piece ear"></div>
+						<div class="piece mask"></div>
+					</div>
+					<div class="piece right-ear"></div>
+							
+				</div>
+						
+				<div class="group torso">
+						
+					<div class="piece body"></div>
+					<div class="group left-arm">
+						<div class="piece top"></div>
+						<div class="piece bottom"></div>
+						<div class="piece mask"></div>
+					</div>
+						
+					<div class="group right-arm">
+						<div class="piece top"></div>
+						<div class="piece bottom"></div>
+						<div class="piece mask masktop"></div>
+						<div class="piece mask maskbottom"></div>
+					</div>
+					
+					<div class="group left-foot">
+						<div class="piece left"></div>
+						<div class="piece middle"></div>
+						<div class="piece right"></div>
+						<div class="piece masktop"></div>
+						<div class="piece maskbottom"></div>
+					</div>
+					
+					<div class="group right-foot">
+						<div class="piece left"></div>
+						<div class="piece right"></div>
+						<div class="piece mask"></div>
+					</div>
+							
+				</div>
+						
 			</div>
-	
-	    </div>
-
-		<script>
 		
-			var elem = document.querySelector('h1');
-			var shadows = [];
-			
-			var GetPointAtAngle = function(ctr, r, ang) {
-				return { 'X' : ctr.X + (r * Math.cos(ang)), 'Y' : ctr.Y - (r * Math.sin(ang))};
-			}
-			
-			var GetAngleAtPoint = function(pt, ctr) {
-				var ang = Math.atan2(pt.Y - ctr.Y, pt.X - ctr.X);
-				return ang;
-			}
-			
-			// 1,1
-			// 1000,1000
-			
-			var center = { 'X' : 1, 'Y' : 1000 };
-			var angle = Math.PI / 2;
-			var anglestep = 1000;
-			var radius = 1000;
-			
-			for (var i = anglestep; i >= 0; i--) {
-				
-				radius = radius - 0.9;
-				
-				var currentangle = (angle / anglestep) * i;
-				
-				var pointatangle = GetPointAtAngle(center, radius, currentangle);
-			
-				console.log(i, 'currentangle: ', currentangle, 'pointatangle: ', pointatangle);
-			
-				shadows.push(pointatangle.X + 'px ' + pointatangle.Y + 'px 0 #' + (
-					(i % 3 == 0) ? 'ff0000' : 
-					(i % 2 == 0) ? '00ff00' : '0000ff'
-				));
-			}
-			
-			console.log('shadows: ', shadows.join(', '));
-			
-			elem.style.textShadow = shadows.join(', ');
+		</div>
 		
-		</script>
+		<script src="javascript/organicpanda.js"></script>
 		
 	</body>
 </html>

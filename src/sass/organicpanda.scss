@@ -1,0 +1,29 @@
+/* Imports */
+
+	@import "_type.scss";
+	@import "_panda.scss";
+	
+/* Page styles */
+	
+	body {
+		background: #ededed;
+		font: 18px/27px 'BebasNeueRegular', Arial, sans-serif;
+		text-align: center;
+	}
+		
+	h1 { 
+		font: 60px/68px 'BebasNeueRegular', Arial, sans-serif;
+		letter-spacing: 0; 
+		color: #e0e0e0;
+		display: block;
+		width: 100%;
+	}
+
+	img { max-width: 100%; } 
+	
+	#header, #page { 
+		max-width: 600px; 
+		margin: 0 auto;
+	}
+
+	
