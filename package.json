@@ -1,10 +1,10 @@
 {
   "name": "organicpanda-homepage",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.9",
     "grunt-contrib-compass": "~0.3.0",
-    "grunt-contrib-watch": "*",
+    "grunt-contrib-watch": "~0.5.1",
     "grunt-contrib-copy": "~0.4.1"
   }
 }
