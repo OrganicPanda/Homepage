@@ -21,6 +21,7 @@ Get the latest from http://nodejs.org/
 
 #### Windows
 Get Ruby from http://rubyinstaller.org/
+
 	gem install sass
 	gem install compass
 
@@ -43,5 +44,7 @@ Install grunt-cli globally like:
 	sudo npm install -g grunt-cli
 ##### Windows
 	npm install -g grunt-cli
+	
 Then you can just build as normal with:
+
 	grunt 
