@@ -8,11 +8,13 @@
 		font-size: 1em;
 		font-family: Arial, sans-serif;
 		text-align: center;
+		padding: 0;
+		margin: 0.1em;
 	}
 
 	.header {
 		border-style: solid;
-		border-width: 0.5em 0;
+		border-width: 0.2em 0;
 		border-color: #000000;
 	}
 
@@ -20,46 +22,28 @@
 		font-family: "lane_-_narrowregular";
 		font-weight: normal;
 		margin: 0;
-		padding: 0;
+		padding: 0.1em 0 0.2em 0;
 	}
 	
 	.links, .panda {
-		float: left;
+		float: left; 
 		width: 50%;
 	}
 
-	@media only screen and (min-width: 200px) {
-		h1 {
-			font-size: 2.5em
-		}
-	}
-
 	@media only screen and (min-width: 300px) {
-		h1 {
-			font-size: 3.5em
+		body {
+			font-size: 140%;
 		}
 	}
 
 	@media only screen and (min-width: 400px) {
-		h1 {
-			font-size: 4.5em
+		body {
+			font-size: 180%;
 		}
 	}
 
 	@media only screen and (min-width: 500px) { 
-		h1 {
-			font-size: 5.5em
-		}
-	}
-
-	@media only screen and (min-width: 600px) {
-		h1 {
-			font-size: 6.5em
-		}
-	}
-
-	@media only screen and (min-width: 700px) {
-		h1 {
-			font-size: 7.5em
+		body {
+			font-size: 230%;
 		}
 	}
