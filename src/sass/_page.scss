@@ -6,44 +6,74 @@
 		font-variant: normal;
 		font-weight: normal;
 		font-size: 1em;
-		font-family: Arial, sans-serif;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		text-align: center;
 		padding: 0;
 		margin: 0.1em;
 	}
 
 	.header {
-		border-style: solid;
-		border-width: 0.2em 0;
-		border-color: #000000;
+		margin: 1em 0 0 0;
+	}
+
+	h1::before {
+		content: "";
+		display: block;
+		padding-top: 100%; /* 1:1 */
+		background-image: inline-image("panda-optimised.svg");
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		background-size: contain;
 	}
 
 	h1 {
-		font-family: "lane_-_narrowregular";
-		font-weight: normal;
+		display: inline-block;
 		margin: 0;
-		padding: 0.1em 0 0.2em 0;
+		padding: 0;
+		border-style: solid;
+		border-width: 0.08em 0;
+		border-color: #000;
+		font-family: 'bebas_neueregular';
+		font-size: 2em;
+		font-weight: normal;
+		letter-spacing: -0.02em;
+		line-height: 1em;
 	}
 	
-	.links, .panda {
-		float: left; 
-		width: 50%;
+	.nav ul {
+		list-style: none;
+	}
+	.nav ul li a {
+		display: block;
+	}
+	.nav ul li a:focus,
+	.nav ul li a:hover {
+		background: #eee;
+	}
+	.nav ul li a:active {
+		background: #ddd;
 	}
 
-	@media only screen and (min-width: 300px) {
+	@media only screen and (min-width: 200px) {
 		body {
 			font-size: 140%;
 		}
 	}
 
-	@media only screen and (min-width: 400px) {
+	@media only screen and (min-width: 300px) {
 		body {
 			font-size: 180%;
 		}
 	}
 
+	@media only screen and (min-width: 400px) {
+		body {
+			font-size: 220%;
+		}
+	}
+
 	@media only screen and (min-width: 500px) { 
 		body {
-			font-size: 230%;
+			font-size: 260%;
 		}
 	}

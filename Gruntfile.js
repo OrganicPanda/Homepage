@@ -34,6 +34,7 @@ module.exports = function(grunt) {
 				options: {
 					sassDir: '<%= meta.srcPath %>sass',
 					cssDir: '<%= meta.buildPath %>css',
+					imagesPath: '<%= meta.srcPath %>sass/images',
 					outputStyle: 'compressed'
 				}
 			}
