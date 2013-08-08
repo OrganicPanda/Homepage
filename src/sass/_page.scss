@@ -9,7 +9,7 @@
 		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		text-align: center;
 		padding: 0;
-		margin: 1em 0.1em;
+		margin: 1em 0;
 	}
 
 	h1::before {
@@ -43,6 +43,8 @@
 	}
 	.nav ul {
 		list-style: none;
+		margin: 0;
+		padding: 0;
 	}
 	.nav ul li {
 		float: left;
@@ -58,6 +60,23 @@
 	.nav ul li a:active {
 		background: #ddd;
 	}
+	
+	
+	
+	html { margin: 0; padding: 0; width: 100%; }
+	.header { position: fixed; width: 18%; float: left; margin-left: 10%; text-align: right; }
+	.nav, .article { width: 60%; float: right; margin-right: 10%; }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@media only screen and (min-width: 200px) {
 		body {
