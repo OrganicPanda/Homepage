@@ -1,3 +1,11 @@
+/* Config */
+
+$grid-segments: 9;
+$gutter: 0.36em;
+
+$primary-color: #2a2a2a;
+$background-color: #ededed;
+
 /* 	
 	Small Screen 
 
@@ -14,15 +22,27 @@
 	} 
 	
 	body {
-		background: #ededed;
-		font-style: normal;
-		font-variant: normal;
-		font-weight: normal;
-		font-size: 1em;
-		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-		text-align: center;
+		background: $background-color;
+		font: normal 100%/1 Georgia, 'Times New Roman', serif;
+		color: $primary-color;
 		padding: 0;
-		margin: 1em 0;
+		margin: $gutter;
+	}
+
+	.nav, .article {
+		line-height: 1.4;
+	}
+
+	/* Use a similar border style for a few bits */
+	.header, .nav {
+		border-style: solid;
+		border-width: ($gutter / 2) 0;
+		border-color: $primary-color;
+	}
+
+	.header {
+		text-align: center;
+		margin-bottom: $gutter;
 	}
 
 	/* Simple header text (including some bits we need to position the logo) */
@@ -30,14 +50,12 @@
 		display: inline-block;
 		margin: 0;
 		padding: 0;
-		border-style: solid;
-		border-width: 0.08em 0;
-		border-color: #000;
 		font-family: 'BebasNeueRegular';
 		font-size: 2em;
 		font-weight: normal;
 		letter-spacing: -0.02em;
 		line-height: 1em;
+		text-align: left;
 	}
 	
 	/* Insert the logo in such a way that it scales with the size of the header text.
@@ -53,11 +71,6 @@
 	}
 	
 	/* Simple default nav style */
-	.nav {
-		border-style: solid;
-		border-width: 0.08em 0;
-		border-color: #000;
-	}
 	.nav ul {
 		list-style: none;
 		margin: 0;
@@ -77,25 +90,25 @@
 /* Start enriching things with media queries */
 
 	/* 	
-		200 and up:
+		Over 320:
 		- 2 column layout
 		- Smaller logo
 		- Fixed logo position so it scrolls with the page
 	*/
-	@media only screen and (min-width: 200px) {
+	@media only screen and (min-width: 321px) {
 	
 		/* Expand to 2 columns */
 		.header { 
 			position: fixed; 
-			width: 18%; 
-			float: left; 
-			margin-left: 10%; 
-			text-align: right; 
+			width: 10%; 
+			float: left;
 		}
 		.nav, .article { 
-			width: 60%; 
-			float: right; 
-			margin-right: 10%;
+			width: 88%; 
+			width: -webkit-calc(90% - #{$gutter});
+			width: -moz-calc(90% - #{$gutter});
+			width: calc(90% - #{$gutter});
+			float: right;
 		}
 		
 		/* Move the nav items inline */
@@ -117,6 +130,34 @@
 			display: block;
 			letter-spacing: -0.02em;
 			margin-top: -1em;
+		}
+		
+	}
+
+	/* 	
+		Over 760:
+	*/
+	@media only screen and (min-width: 761px) {
+	
+		/* Make the logo column bigger */
+		.header {
+			width: 20%; 
+		}
+		.nav, .article { 
+			width: 78%; 
+			width: -webkit-calc(80% - #{$gutter});
+			width: -moz-calc(80% - #{$gutter});
+			width: calc(80% - #{$gutter});
+		}
+		
+		/* Go back to the full text */
+		h1 {
+			letter-spacing: inherit;
+		}
+		
+		h1::after {
+			content: "";
+			display: none;
 		}
 		
 	}
