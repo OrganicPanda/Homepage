@@ -23,14 +23,34 @@ $background-color: #ededed;
 	
 	body {
 		background: $background-color;
-		font: normal 100%/1 Georgia, 'Times New Roman', serif;
+		font: normal 100%/1.4 Georgia, 'Times New Roman', serif;
 		color: $primary-color;
 		padding: 0;
 		margin: $gutter;
 	}
 
-	.nav, .article {
-		line-height: 1.4;
+	h1, h2, h3, h4, h5, h6 {
+		line-height: 1.25;
+		margin-bottom: 1.4em;
+		font-weight: normal;
+	}
+
+	h1 {
+		margin: 1em 0 0.5em 0;
+		line-height: 1.125em;
+		font-size: 1.8em;
+	}
+
+	h2 {
+		line-height: 1.2em;
+		margin-top: 1.4em;
+		margin-bottom: 0.7em;
+		font-size: 1.6em;
+	}
+
+	p, ol, ul, blockquote {
+		line-height: 1.5;
+		margin: 0 0 1.5em 0;
 	}
 
 	/* Use a similar border style for a few bits */
@@ -46,7 +66,7 @@ $background-color: #ededed;
 	}
 
 	/* Simple header text (including some bits we need to position the logo) */
-	h1 {
+	.header h1 {
 		display: inline-block;
 		margin: 0;
 		padding: 0;
@@ -60,7 +80,7 @@ $background-color: #ededed;
 	
 	/* Insert the logo in such a way that it scales with the size of the header text.
 		This will not cause any harm to browsers that don't support ::before */
-	h1::before {
+	.header h1::before {
 		content: "";
 		display: block;
 		padding-top: 100%; /* 1:1 */
@@ -118,7 +138,7 @@ $background-color: #ededed;
 		}
 	
 		/* Hide the real header text. Still accessible to screen readers */
-		h1 span {
+		.header h1 span {
 			font: 0/0 a;
 		}
 		
@@ -141,7 +161,7 @@ $background-color: #ededed;
 		}
 		
 		/* Go back to the full text */
-		h1 span {
+		.header h1 span {
 			font: inherit;
 		}
 		
