@@ -118,18 +118,8 @@ $background-color: #ededed;
 		}
 	
 		/* Hide the real header text. Still accessible to screen readers */
-		h1 {
-			letter-spacing: -1000em; 
-			overflow: hidden;
-		}
-		
-		/* Show a smaller header text. This new text will be ignored by screen readers.
-			Our flexible logo image should resize to this new text */
-		h1::after {
-			content: "OP";
-			display: block;
-			letter-spacing: -0.02em;
-			margin-top: -1em;
+		h1 span {
+			font: 0/0 a;
 		}
 		
 	}
@@ -151,13 +141,8 @@ $background-color: #ededed;
 		}
 		
 		/* Go back to the full text */
-		h1 {
-			letter-spacing: inherit;
-		}
-		
-		h1::after {
-			content: "";
-			display: none;
+		h1 span {
+			font: inherit;
 		}
 		
 	}
