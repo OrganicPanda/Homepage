@@ -1,7 +1,7 @@
 /* Config */
 
 $grid-segments: 9;
-$gutter: 0.36em;
+$gutter: 5%;
 
 $primary-color: #2a2a2a;
 $background-color: #ededed;
@@ -26,7 +26,7 @@ $background-color: #ededed;
 		font: normal 100%/1.4 Georgia, 'Times New Roman', serif;
 		color: $primary-color;
 		padding: 0;
-		margin: $gutter;
+		margin-top: $gutter;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -52,11 +52,17 @@ $background-color: #ededed;
 		line-height: 1.5;
 		margin: 0 0 1.5em 0;
 	}
+	
+	.header, .nav, .article {
+		margin-left: 5%;
+		margin-right: 5%;
+		clear: both;
+	}
 
 	/* Use a similar border style for a few bits */
 	.header, .nav {
 		border-style: solid;
-		border-width: ($gutter / 2) 0;
+		border-width: 0.18em 0;
 		border-color: $primary-color;
 	}
 
@@ -107,62 +113,59 @@ $background-color: #ededed;
 		background: #ddd;
 	}
 
-/* Start enriching things with media queries */
+/* 	Start enriching things with media queries. 
+	Using http://trentwalton.com/ as a text-size guide here.
+	Modified to stick to a 12.5% for every 12.5em rhythm */
 
-	/* 	
-		Over 320:
-		- 2 column layout
-		- Smaller logo
-		- Fixed logo position so it scrolls with the page
-	*/
-	@media only screen and (min-width: 321px) {
-	
-		/* Expand to 2 columns */
-		.header { 
-			position: fixed; 
-			width: 10%; 
-			float: left;
-		}
-		.nav, .article { 
-			width: 88%; 
-			width: -webkit-calc(90% - #{$gutter});
-			width: -moz-calc(90% - #{$gutter});
-			width: calc(90% - #{$gutter});
-			float: right;
-		}
+	@media screen and (min-width: 37.5em) {
 		
-		/* Move the nav items inline */
-		.nav ul li {
-			float: left;
-			width: 20%;
-		}
-	
-		/* Hide the real header text. Still accessible to screen readers */
-		.header h1 span {
-			font: 0/0 a;
+		body {
+			font-size: 112.5%;
 		}
 		
 	}
 
-	/* 	
-		Over 760:
-	*/
-	@media only screen and (min-width: 761px) {
-	
-		/* Make the logo column bigger */
-		.header {
-			width: 20%; 
+	@media screen and (min-width: 50em) {
+		
+		body {
+			font-size: 125%;
 		}
-		.nav, .article { 
-			width: 78%; 
-			width: -webkit-calc(80% - #{$gutter});
-			width: -moz-calc(80% - #{$gutter});
-			width: calc(80% - #{$gutter});
+	
+		/* Going for 'Page Harmony' as described here: http://retinart.net/graphic-design/secret-law-of-page-harmony/ */	
+		.header, .nav, .article {
+			margin-left: 10%;
+			margin-right: 20%;
 		}
 		
-		/* Go back to the full text */
-		.header h1 span {
-			font: inherit;
+		/* 	Move the nav items inline 
+			Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
+		.nav ul li {
+			float: left;
+			width: 20%;
+			text-align: center;
+		}
+		.nav ul:before, .nav ul:after {
+			content: " ";
+			display: table;
+		}
+		.nav ul:after {
+			clear: both;
+		}
+		
+	}
+
+	@media screen and (min-width: 62.5em) {
+		
+		body {
+			font-size: 137.5%;
+		}
+		
+	}
+
+	@media screen and (min-width: 75em) {
+		
+		body {
+			font-size: 150%;
 		}
 		
 	}
