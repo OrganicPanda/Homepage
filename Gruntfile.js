@@ -40,6 +40,18 @@ module.exports = function(grunt) {
 			}
 		},
 
+		jekyll: {                             // Task
+			options: {                          // Universal options
+				src : '<%= meta.srcPath %>jekyll/organicpanda'
+			},
+			dist: {                             // Target
+				options: {                        // Target options
+					dest: '<%= meta.buildPath %>jekyll',
+					config: '<%= meta.srcPath %>jekyll/organicpanda/_config.yml'
+				}
+			}
+		},
+
 		watch: {
 			scripts: {
 
@@ -58,6 +70,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-jekyll');
 
 	// Default task.
 	grunt.registerTask('default', ['compass', 'copy']);
