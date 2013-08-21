@@ -1,46 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width">
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+		
+		<title>{{ page.title }} - OrganicPanda</title>
+		
+		<meta name="description" content="OrganicPanda - The home of OrganicPanda">
+		<meta name="author" content="OrganicPanda">
+		
+		<link href="../css/organicpanda.css" rel="stylesheet">
+		
+		<link rel="shortcut icon" href="images/op.ico">
+		<link rel="apple-touch-icon" href="images/apple-op.png">
+			
+		<script>
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-6779453-1']);
+			_gaq.push(['_trackPageview']);
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
 
-    </head>
-    <body>
+		</script>
+	
+	</head>
+	
+	<body>
 
-        <div class="container">
-          <div class="site">
-            <div class="header">
-              <h1 class="title"><a href="/">{{ site.name }}</a></h1>
-              <a class="extra" href="/">home</a>
-            </div>
-
-                {{ content }}
-
-            <div class="footer">
-              <div class="contact">
-                <p>
-                  Your Name<br />
-                  What You Are<br />
-                  your@email.com
-                </p>
-              </div>
-              <div class="contact">
-                <p>
-                  <a href="http://github.com/yourusername/">github.com/yourusername</a><br />
-                  <a href="http://twitter.com/yourusername/">twitter.com/yourusername</a><br />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> <!-- /container -->
-
-    </body>
+		<div class="header">
+	
+			<h1>O<span>rganic</span>P<span>anda</span></h1>
+	
+		</div>
+		
+		<div class="nav" role="navigation">
+			<ul>
+				<li><a href="#">About Me</a></li>
+				<li class="active"><a href="#">Blog</a></li>
+				<li><a href="#">Experiments</a></li>
+			</ul>
+		</div>
+	
+		{{ content }}
+		
+	</body>
 </html>
