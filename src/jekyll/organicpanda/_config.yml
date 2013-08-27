@@ -1,3 +1,4 @@
 name: OrganicPanda
 markdown: redcarpet
 pygments: true
+permalink: /:title/

@@ -20,11 +20,11 @@ module.exports = function(grunt) {
 					cwd: '<%= meta.srcPath %>font',
 					src: ['**'],
 					dest: '<%= meta.buildPath %>font'
-				}, {
-					expand: true,
+				}, {					
+					expand: true, 
 					cwd: '<%= meta.srcPath %>image',
-					src: ['**'],
-					dest: '<%= meta.buildPath %>image'
+					src: ['apple-touch-icon.png', 'favicon.ico'], 
+					dest: '<%= meta.buildPath %>'
 				}]
 			}
 		},
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 			},
 			dist: {                             // Target
 				options: {                        // Target options
-					dest: '<%= meta.buildPath %>jekyll',
+					dest: '<%= meta.buildPath %>',
 					config: '<%= meta.srcPath %>jekyll/organicpanda/_config.yml'
 				}
 			}
@@ -59,7 +59,16 @@ module.exports = function(grunt) {
 				files: ['<%= meta.srcPath %>/**/*.scss'],
 
 				// Do this
-				tasks: ['default']
+				tasks: ['compass']
+
+			},
+			jekyll: {
+
+				// When these files change
+				files: ['<%= meta.srcPath %>jekyll/**/*.*'],
+
+				// Do this
+				tasks: ['build']
 
 			}
 		}
@@ -73,6 +82,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jekyll');
 
 	// Default task.
-	grunt.registerTask('default', ['compass', 'copy']);
+	grunt.registerTask('build', ['jekyll', 'compass', 'copy']);
+	grunt.registerTask('default', ['build', 'watch']);
 
 };

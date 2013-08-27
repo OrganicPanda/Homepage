@@ -58,6 +58,19 @@ $background-color: #ededed;
 		margin: 0 0 1.5em 0;
 	}
 	
+	p {
+		text-align: justify;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		-ms-hyphens: auto;
+		-o-hyphens: auto;
+		hyphens: auto;
+	}
+	
+	.subheading {
+		text-align: center;
+	}
+	
 	.header, .nav, .article {
 		margin-left: 5%;
 		margin-right: 5%;
