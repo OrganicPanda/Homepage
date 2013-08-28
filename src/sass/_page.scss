@@ -139,6 +139,24 @@ $background-color: #ededed;
 	Using http://trentwalton.com/ as a text-size guide here.
 	Modified to stick to a 12.5% for every 12.5em rhythm */
 
+	@media screen and (min-width: 25em) {
+	
+		/* 	Move the nav items inline 
+			Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
+		.nav ul li {
+			float: left;
+			width: 33.33333%;
+		}
+		.nav ul:before, .nav ul:after {
+			content: " ";
+			display: table;
+		}
+		.nav ul:after {
+			clear: both;
+		}
+	
+	}
+
 	@media screen and (min-width: 37.5em) {
 		
 		body {
@@ -157,20 +175,6 @@ $background-color: #ededed;
 		.header, .nav, .article {
 			margin-left: 10%;
 			margin-right: 20%;
-		}
-		
-		/* 	Move the nav items inline 
-			Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
-		.nav ul li {
-			float: left;
-			width: 33.33333%;
-		}
-		.nav ul:before, .nav ul:after {
-			content: " ";
-			display: table;
-		}
-		.nav ul:after {
-			clear: both;
 		}
 		
 	}

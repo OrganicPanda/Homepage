@@ -71,6 +71,13 @@ module.exports = function(grunt) {
 				tasks: ['build']
 
 			}
+		},
+		
+		devserver : { 
+			options: {
+				'port' : 8000,
+				'base' : './build'
+			}
 		}
 
 	});
@@ -80,8 +87,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jekyll');
+	grunt.loadNpmTasks('grunt-devserver');
 
-	// Default task.
+	// Create aliases
+	grunt.registerTask('server', ['devserver']);
 	grunt.registerTask('build', ['jekyll', 'compass', 'copy']);
 	grunt.registerTask('default', ['build', 'watch']);
 
