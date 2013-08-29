@@ -6,6 +6,9 @@ module.exports = function(grunt) {
 		// Read the package.json
 		pkg: grunt.file.readJSON('package.json'),
 
+		// Load in the external Amazon S3 config
+		aws: grunt.file.readJSON('grunt-aws.json'),
+
 		// Metadata.
 		meta: {
 			basePath: '',
@@ -78,6 +81,30 @@ module.exports = function(grunt) {
 				'port' : 8000,
 				'base' : './build'
 			}
+		},
+
+		s3: {
+			options: {
+				key: '<%= aws.key %>',
+				secret: '<%= aws.secret %>',
+				bucket: '<%= aws.bucket %>',
+				access: 'public-read',
+				region: "eu-west-1",
+				headers: {
+					// Two Year cache policy (1000 * 60 * 60 * 24 * 730)
+					//"Cache-Control": "max-age=630720000, public",
+					//"Expires": new Date(Date.now() + 63072000000).toUTCString()
+				}
+			},
+    		production: {
+				upload: [{
+					src: '<%= meta.buildPath %>/**/*.*',
+					dest: '/',
+					rel: '<%= meta.buildPath %>',
+					options: { gzip: true }
+  				}]
+			}
+
 		}
 
 	});
@@ -88,10 +115,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jekyll');
 	grunt.loadNpmTasks('grunt-devserver');
+	grunt.loadNpmTasks('grunt-s3');
 
 	// Create aliases
 	grunt.registerTask('server', ['devserver']);
 	grunt.registerTask('build', ['jekyll', 'compass', 'copy']);
+	grunt.registerTask('deploy', ['build', 's3']);
 	grunt.registerTask('default', ['build', 'watch']);
 
 };

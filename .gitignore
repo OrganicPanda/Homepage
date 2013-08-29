@@ -4,3 +4,4 @@
 *.sublime-workspace
 build
 node_modules
+grunt-aws.json
