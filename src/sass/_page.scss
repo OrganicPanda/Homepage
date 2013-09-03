@@ -4,6 +4,7 @@ $grid-segments: 9;
 $gutter: 5%;
 
 $primary-color: #2a2a2a;
+$secondary-color: #888888;
 $background-color: #ededed;
 
 /* Bring in external tools */
@@ -40,7 +41,7 @@ $background-color: #ededed;
 	}
 
 	h1 {
-		margin: 1em 0 0.5em 0;
+		margin: 3em 0 0.5em 0;
 		line-height: 1.125em;
 		font-size: 1.8em;
 		text-align: center;
@@ -67,8 +68,10 @@ $background-color: #ededed;
 		hyphens: auto;
 	}
 	
-	.subheading {
+	.date {
 		text-align: center;
+		margin-bottom: 4em;
+		color: $secondary-color;
 	}
 	
 	.header, .nav, .article {
@@ -83,13 +86,14 @@ $background-color: #ededed;
 	}
 
 	/* Simple header text (including some bits we need to position the logo) */
-	.header h1 {
+	.header em {
 		display: inline-block;
 		margin: 0;
 		padding: 0;
 		font-family: 'BebasNeueRegular';
 		font-size: 2em;
 		font-weight: normal;
+		font-style: normal;
 		letter-spacing: -0.02em;
 		line-height: 1em;
 		text-align: left;
@@ -97,7 +101,7 @@ $background-color: #ededed;
 	
 	/* Insert the logo in such a way that it scales with the size of the header text.
 		This will not cause any harm to browsers that don't support ::before */
-	.header h1::before {
+	.header em::before {
 		content: "";
 		display: block;
 		padding-top: 100%; /* 1:1 */
