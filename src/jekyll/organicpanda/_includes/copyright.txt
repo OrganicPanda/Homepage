@@ -1,0 +1,1 @@
+© {{ 'now' | date: "%Y" }} {{ site.author }}

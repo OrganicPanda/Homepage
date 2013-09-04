@@ -2,7 +2,7 @@
 layout: post
 title:  "First Post!"
 date:   2013-08-20 21:57:03
-categories: organic panda
+categories: blog
 ---
 
 Los Angeles Airways (LAA) Flight 417 was a regularly scheduled passenger flight from Los Angeles International Airport to the Disneyland Heliport in Anaheim, California. The aircraft and crew had completed three round trips to various destinations in the Greater Los Angeles Metropolitan Area beginning at 0607 PDT and departed the ramp at Los Angeles for Flight 417 at 1026. The flight, operating under Visual Flight Rules was cleared by Los Angeles Helicopter Control to take off and proceed eastbound at 10:28:15.

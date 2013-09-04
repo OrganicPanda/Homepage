@@ -7,8 +7,8 @@
 		
 		<title>{{ page.title }} - OrganicPanda</title>
 		
-		<meta name="description" content="OrganicPanda - The home of OrganicPanda">
-		<meta name="author" content="OrganicPanda">
+		<meta name="description" content="{{ site.description }}">
+		<meta name="author" content="{{ site.name }}">
 		
 		<link href="/css/organicpanda.css" rel="stylesheet">
 		
@@ -23,17 +23,17 @@
 	
 	<body>
 
-		<header class="header" role="banner">
+		<header class="site-header" role="banner">
 	
-			<em>OrganicPanda</em>
+			<a href="/">OrganicPanda</a>
 	
 		</header>
 		
-		<nav class="nav" role='navigation'>
+		<nav class="site-nav" role='navigation'>
 		
 			<a href="/about-me">About Me</a>
-			<a href="#">Blog</a>
-			<a href="#">Experiments</a>
+			<a href="/blog">Blog</a>
+			<a href="/experiments">Experiments</a>
 			
 		</nav>
 	
@@ -43,6 +43,12 @@
 			
 		</main>
 		
+		<footer class="site-footer">
+
+			<p class="copyright">{% include copyright.txt %}</p>
+
+		</footer>
+
 		<script>
 
 			var _gaq = _gaq || [];

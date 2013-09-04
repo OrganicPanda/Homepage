@@ -68,25 +68,31 @@ $background-color: #ededed;
 		hyphens: auto;
 	}
 	
-	.date {
+	.date, .copyright {
 		text-align: center;
-		margin-bottom: 4em;
 		color: $secondary-color;
 	}
-	
-	.header, .nav, .article {
-		margin-left: 5%;
-		margin-right: 5%;
-		clear: both;
+
+	.copyright {
+		margin-top: 6em;
+		font-size: 0.8em;
 	}
 
-	.header {
+	.date + p, h1 + p { margin-top: 4em; } 
+	h1 + .date { margin-top: 1.5em; } 
+	
+	.site-header, .site-nav, .site-footer, .article {
+		margin-left: $gutter;
+		margin-right: $gutter;
+	}
+
+	.site-header {
 		text-align: center;
 		margin-bottom: $gutter;
 	}
 
 	/* Simple header text (including some bits we need to position the logo) */
-	.header em {
+	.site-header a {
 		display: inline-block;
 		margin: 0;
 		padding: 0;
@@ -97,11 +103,13 @@ $background-color: #ededed;
 		letter-spacing: -0.02em;
 		line-height: 1em;
 		text-align: left;
+		color: $primary-color;
+    	text-decoration: none;
 	}
 	
 	/* Insert the logo in such a way that it scales with the size of the header text.
 		This will not cause any harm to browsers that don't support ::before */
-	.header em::before {
+	.site-header a::before {
 		content: "";
 		display: block;
 		padding-top: 100%; /* 1:1 */
@@ -112,11 +120,11 @@ $background-color: #ededed;
 	}
 	
 	/* Simple default nav style */
-	.nav {
+	.site-nav {
 		margin-bottom: $gutter;
 		font-family: 'BebasNeueRegular';
 	}
-	.nav a {
+	.site-nav a {
 		display: block;
 		text-align: center;
 		text-decoration: none;
@@ -125,11 +133,11 @@ $background-color: #ededed;
 		padding: 0.5em 0;
 		@include transition(background-color 0.1s ease-in-out);
 	}
-	.nav a:focus,
-	.nav a:hover {
+	.site-nav a:focus,
+	.site-nav a:hover {
 		background-color: lighten($primary-color, 10);
 	}
-	.nav a:active {
+	.site-nav a:active {
 		background: red;
 		background-color: lighten($primary-color, 20);
 	}
@@ -142,15 +150,15 @@ $background-color: #ededed;
 	
 		/* 	Move the nav items inline 
 			Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
-		.nav a {
+		.site-nav a {
 			float: left;
 			width: 33.33333%;
 		}
-		.nav:before, .nav:after {
+		.site-nav:before, .site-nav:after {
 			content: " ";
 			display: table;
 		}
-		.nav:after {
+		.site-nav:after {
 			clear: both;
 		}
 	
@@ -171,7 +179,7 @@ $background-color: #ededed;
 		}
 	
 		/* Going for 'Page Harmony' as described here: http://retinart.net/graphic-design/secret-law-of-page-harmony/ */	
-		.header, .nav, .article {
+		.site-header, .site-nav, .site-footer, .article {
 			margin-left: 10%;
 			margin-right: 20%;
 		}
