@@ -20,6 +20,11 @@ module.exports = function(grunt) {
 			main: {
 				files: [{
 					expand: true,
+					cwd: '<%= meta.srcPath %>script',
+					src: ['**'],
+					dest: '<%= meta.buildPath %>script'
+				}, {
+					expand: true,
 					cwd: '<%= meta.srcPath %>font',
 					src: ['**'],
 					dest: '<%= meta.buildPath %>font'
@@ -56,7 +61,7 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-			scripts: {
+			sass: {
 
 				// When these files change
 				files: ['<%= meta.srcPath %>/**/*.scss'],

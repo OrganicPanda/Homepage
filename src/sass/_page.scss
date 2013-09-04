@@ -116,12 +116,7 @@ $background-color: #ededed;
 		margin-bottom: $gutter;
 		font-family: 'BebasNeueRegular';
 	}
-	.nav ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	.nav ul li a {
+	.nav a {
 		display: block;
 		text-align: center;
 		text-decoration: none;
@@ -130,11 +125,11 @@ $background-color: #ededed;
 		padding: 0.5em 0;
 		@include transition(background-color 0.1s ease-in-out);
 	}
-	.nav ul li a:focus,
-	.nav ul li a:hover {
+	.nav a:focus,
+	.nav a:hover {
 		background-color: lighten($primary-color, 10);
 	}
-	.nav ul li a:active {
+	.nav a:active {
 		background: red;
 		background-color: lighten($primary-color, 20);
 	}
@@ -147,15 +142,15 @@ $background-color: #ededed;
 	
 		/* 	Move the nav items inline 
 			Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
-		.nav ul li {
+		.nav a {
 			float: left;
 			width: 33.33333%;
 		}
-		.nav ul:before, .nav ul:after {
+		.nav:before, .nav:after {
 			content: " ";
 			display: table;
 		}
-		.nav ul:after {
+		.nav:after {
 			clear: both;
 		}
 	

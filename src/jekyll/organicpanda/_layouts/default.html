@@ -14,26 +14,34 @@
 		
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		
+		<!--[if lt IE 9]>
+			<script src="/script/html5shiv.js"></script> 
+		<![endif]-->
 	
 	</head>
 	
 	<body>
 
-		<div class="header">
+		<header class="header" role="banner">
 	
 			<em>OrganicPanda</em>
 	
-		</div>
+		</header>
 		
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a href="/about-me">About Me</a></li>
-				<li class="active"><a href="#">Blog</a></li>
-				<li><a href="#">Experiments</a></li>
-			</ul>
-		</div>
+		<nav class="nav" role='navigation'>
+		
+			<a href="/about-me">About Me</a>
+			<a href="#">Blog</a>
+			<a href="#">Experiments</a>
+			
+		</nav>
 	
-		{{ content }}
+		<main role="main">
+		
+			{{ content }}
+			
+		</main>
 		
 		<script>
 
