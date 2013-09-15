@@ -1,0 +1,29 @@
+/* Styles for after JS has got involved */
+.pandacarousel-live { 
+	overflow: auto;
+	overflow-x: hidden;
+	position: relative;
+}
+
+.pandacarousel-live > * { 
+	width: 100%;
+	display: block; 
+	position: absolute;
+	overflow: auto;
+	
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	
+	-moz-transition: top 0s linear, left 0s linear;
+	-webkit-transition: top 0s linear, left 0s linear;
+	-o-transition: top 0s linear, left 0s linear;
+	-ms-transition: top 0s linear, left 0s linear;
+	transition: top 0s linear, left 0s linear;
+}

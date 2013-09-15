@@ -33,6 +33,11 @@ module.exports = function(grunt) {
 					cwd: '<%= meta.srcPath %>image',
 					src: ['apple-touch-icon.png', 'favicon.ico'], 
 					dest: '<%= meta.buildPath %>'
+				}, {					
+					expand: true, 
+					cwd: '<%= meta.srcPath %>image',
+					src: ['**'], 
+					dest: '<%= meta.buildPath %>image'
 				}]
 			}
 		},
@@ -68,6 +73,24 @@ module.exports = function(grunt) {
 
 				// Do this
 				tasks: ['compass']
+
+			},
+			script: {
+
+				// When these files change
+				files: ['<%= meta.srcPath %>/**/*.js'],
+
+				// Do this
+				tasks: ['copy']
+
+			},
+			image: {
+
+				// When these files change
+				files: ['<%= meta.srcPath %>image/**/*.*'],
+
+				// Do this
+				tasks: ['copy']
 
 			},
 			jekyll: {

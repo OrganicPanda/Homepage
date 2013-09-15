@@ -18,6 +18,10 @@
 		<!--[if lt IE 9]>
 			<script src="/script/html5shiv.js"></script> 
 		<![endif]-->
+
+		{% if site.weinre %}
+			<script src="{{ site.weinre_url }}"></script>
+		{% endif %}
 	
 	</head>
 	

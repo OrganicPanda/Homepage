@@ -11,6 +11,17 @@ $background-color: #ededed;
 
 @import "compass/css3/transition";
 
+/* Set up some base SASS functionality */
+
+	@mixin constrain-content($left, $right) {
+		.site-header, .site-nav, .site-footer,
+		h1, h2, h3, h3, h5, h6,
+		p, ol, ul, blockquote {
+			margin-left: $left;
+			margin-right: $right;
+		}
+	}
+
 /* 	
 	Small Screen 
 
@@ -20,7 +31,7 @@ $background-color: #ededed;
 	- Everything should be accessible to old IE
 */
 	
-	html { 
+	html, body { 
 		margin: 0; 
 		padding: 0; 
 		width: 100%; 
@@ -30,7 +41,6 @@ $background-color: #ededed;
 		background: $background-color;
 		font: normal 100%/1.4 Georgia, 'Times New Roman', serif;
 		color: $primary-color;
-		padding: 0;
 		margin-top: $gutter;
 	}
 
@@ -41,7 +51,8 @@ $background-color: #ededed;
 	}
 
 	h1 {
-		margin: 3em 0 0.5em 0;
+		margin-top: 3em;
+		margin-bottom: 0.5em;
 		line-height: 1.125em;
 		font-size: 1.8em;
 		text-align: center;
@@ -56,7 +67,8 @@ $background-color: #ededed;
 
 	p, ol, ul, blockquote {
 		line-height: 1.5;
-		margin: 0 0 1.5em 0;
+		margin-top: 0;
+		margin-bottom: 1.5em;
 	}
 	
 	p {
@@ -81,10 +93,7 @@ $background-color: #ededed;
 	.date + p, h1 + p { margin-top: 4em; } 
 	h1 + .date { margin-top: 1.5em; } 
 	
-	.site-header, .site-nav, .site-footer, .article {
-		margin-left: $gutter;
-		margin-right: $gutter;
-	}
+	@include constrain-content($gutter, $gutter);
 
 	.site-header {
 		text-align: center;
@@ -179,10 +188,7 @@ $background-color: #ededed;
 		}
 	
 		/* Going for 'Page Harmony' as described here: http://retinart.net/graphic-design/secret-law-of-page-harmony/ */	
-		.site-header, .site-nav, .site-footer, .article {
-			margin-left: 10%;
-			margin-right: 20%;
-		}
+		@include constrain-content($gutter * 2, $gutter * 4);
 		
 	}
 
