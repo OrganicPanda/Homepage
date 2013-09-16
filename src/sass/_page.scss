@@ -79,6 +79,17 @@ $background-color: #ededed;
 		-o-hyphens: auto;
 		hyphens: auto;
 	}
+
+	button {
+		color: #444;
+		border: 0.1em solid #999;
+		background-color: #E6E6E6;
+		text-decoration: none;
+		border-radius: 0.2em;
+	}
+	button:hover, button:focus {
+		background-color: lighten(#E6E6E6, 20);
+	}
 	
 	.date, .copyright {
 		text-align: center;

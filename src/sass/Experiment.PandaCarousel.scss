@@ -1,10 +1,44 @@
+@import "compass/css3";
+
 .pandacarousel {
 	width: 100%;
 	height: 15em;
-	background: hotpink;
+	@include box-shadow(#CACACA 0 0 0.7em);
+
+	/* Courtesy of by Atle Mo (design), Lea Verou (code) http://lea.verou.me/css3patterns/#carbon-fibre */
+	@include background(
+		radial-gradient(black 15%, transparent 16%) 0 0, 
+		radial-gradient(black 15%, transparent 16%) 0.4em 0.4em, 
+		radial-gradient(hsla(0, 100%, 100%, 0.1) 15%, transparent 20%) 0 0.05em, 
+		radial-gradient(hsla(0, 100%, 100%, 0.1) 15%, transparent 20%) 0.4em 0.45em
+	);
+	background-color: #282828;
+	background-size: 0.8em 0.8em;
+
 }
 
 .pandacarousel .panel {
 	background-position: 50% 50%;
 	background-size: cover;
+}
+
+.pandacarousel-buttons {
+	margin-left: 10%;
+	margin-right: 20%;
+	margin-top: 1em;
+}
+
+.pandacarousel-buttons .previous, .pandacarousel-buttons .next {
+	width: 19%;
+	padding-left: 0;
+	padding-right: 0;
+	margin: 0;
+}
+
+.pandacarousel-buttons .previous {
+	margin-left: 30%;
+	margin-right: 2%;
+}
+.pandacarousel-buttons .previous {
+	margin-right: 2%;
 }

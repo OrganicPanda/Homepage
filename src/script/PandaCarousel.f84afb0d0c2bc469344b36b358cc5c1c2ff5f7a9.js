@@ -1,4 +1,4 @@
-function PandaCarousel(element, childrenPerPage) {
+function PandaCarousel(element, options) {
 
 	// Some browsers are still behind a prefix and some have no support at all.
 	// Grab the best properties we can
@@ -12,8 +12,8 @@ function PandaCarousel(element, childrenPerPage) {
 	this.listeners = [];
 	this.requestAnimationFrameId = null;
 
-	this.childrenPerPage = (childrenPerPage === undefined) ? 1 : childrenPerPage;
-	this.horizontalLayout = true;
+	this.childrenPerPage = (options.childrenPerPage === undefined) ? 1 : options.childrenPerPage;
+	this.horizontalLayout = (options.horizontalLayout === undefined) ? true : options.horizontalLayout;
 	this.childCount = 0;
 	this.childWidth = [];
 	this.childHeight = [];
@@ -26,7 +26,7 @@ function PandaCarousel(element, childrenPerPage) {
 
 	this.currentPage = 0;
 	this.offset = 0;
-	this.snapPercent = 15;
+	this.snapPercent = (options.snapPercent === undefined) ? 15 : options.snapPercent;
 
 	this.debug = function() {
 		var debugElement = document.getElementById('debug');
@@ -79,8 +79,8 @@ function PandaCarousel(element, childrenPerPage) {
 	// We are now live
 	this.addClass('pandacarousel-live');
 
-	this.previousButton = null;
-	this.nextButton = null;
+	this.previousButton = (options.previousButton === undefined) ? null : options.previousButton;;
+	this.nextButton = (options.nextButton === undefined) ? null : options.nextButton;;
 	this.addButtons();
 
 	this.updateChildren();
@@ -366,17 +366,20 @@ PandaCarousel.prototype.last = function() {
 
 PandaCarousel.prototype.addButtons = function() {
 
-	this.previousButton = document.createElement('button');
-	this.nextButton = document.createElement('button');
+	// The buttons may have already been created
+	if (!this.previousButton) {
+		this.previousButton = document.createElement('button');
+		this.previousButton.className = 'previous';
+		this.previousButton.innerHTML = '‹';
+		this.element.parentNode.appendChild(this.nextButton);
+	}
 
-	this.previousButton.className = 'previous';
-	this.nextButton.className = 'next';
-
-	this.previousButton.innerHTML = '‹';
-	this.nextButton.innerHTML = '›';
-
-	this.element.parentNode.appendChild(this.previousButton);
-	this.element.parentNode.appendChild(this.nextButton);
+	if (!this.nextButton) {
+		this.nextButton = document.createElement('button');
+		this.nextButton.className = 'next';
+		this.nextButton.innerHTML = '›';
+		this.element.parentNode.appendChild(this.nextButton);
+	}
 
 };
 
