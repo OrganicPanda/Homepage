@@ -87,6 +87,14 @@ function PandaCarousel(element, options) {
 
 	this.initEvents();
 
+	// Do we have plugins to set up?
+	// Thanks to bespoke.js (A much better carousel, but you didn't hear that from me!) for this idea
+	if (typeof options.plugins != 'undefined') {
+		for (var plugin in options.plugins) {
+			options.plugins[plugin](this);
+		}
+	}
+
 };
 
 PandaCarousel.prototype.updateDimensions = function() {
