@@ -4,10 +4,11 @@ function PandaCarousel(element, options) {
 	// Grab the best properties we can
 	this.transitionDurationProperty = this.getStyleProperty(['transitionDuration', 'WebkitTransitionDuration', 'MozTransitionDuration', 'OTransitionDuration', 'msTransitionDuration', 'KhtmlTransitionDuration']);
 
+	this.eventListeners = {};
 	this.element = element;
 	this.cacheElementWidth = 0;
 	this.cacheElementHeight = 0;
-	this.updateDimensions();
+	this.cacheDimensions();
 
 	this.listeners = [];
 	this.requestAnimationFrameId = null;
@@ -26,7 +27,6 @@ function PandaCarousel(element, options) {
 
 	this.currentPage = 0;
 	this.offset = 0;
-	this.snapPercent = (options.snapPercent === undefined) ? 15 : options.snapPercent;
 
 	this.debug = function() {
 		var debugElement = document.getElementById('debug');
@@ -39,10 +39,6 @@ function PandaCarousel(element, options) {
 	// We are now live
 	this.addClass('pandacarousel-live');
 
-	this.previousButton = (options.previousButton === undefined) ? null : options.previousButton;;
-	this.nextButton = (options.nextButton === undefined) ? null : options.nextButton;;
-	this.addButtons();
-
 	this.updateChildren();
 
 	this.initEvents();
@@ -50,14 +46,47 @@ function PandaCarousel(element, options) {
 	// Do we have plugins to set up?
 	// Thanks to bespoke.js (A much better carousel, but you didn't hear that from me!) for this idea
 	if (typeof options.plugins != 'undefined') {
-		for (var plugin in options.plugins) {
-			new options.plugins[plugin](this, options);
-		}
+		for (var i = 0, l = options.plugins.length; i < l; i++) {
+			options.plugins[i] = new options.plugins[i](this, options);
+		};
 	}
 
 };
 
-PandaCarousel.prototype.updateDimensions = function() {
+PandaCarousel.prototype.dispatchEvent = function(eventName, eventArgs){
+	
+	var callbacks = this.eventListeners[eventName] || [];
+	var callback;
+
+	for (var c = callbacks.length - 1; c >= 0; c--) {
+
+		callback = callbacks[c];
+
+		if (callback) {
+			callback.call(eventArgs);
+		}
+
+	};
+
+};
+
+PandaCarousel.prototype.addEventListener = function(eventName, callback) {
+
+	if (!this.eventListeners[eventName]) {
+		this.eventListeners[eventName] = [];
+	}
+
+	return this.eventListeners[eventName].push(callback);
+
+};
+
+PandaCarousel.prototype.removeEventListener = function(eventName, id) {
+
+	return this.eventListeners[eventName][id] = null;
+
+};
+
+PandaCarousel.prototype.cacheDimensions = function() {
 
 	this.cacheElementWidth = this.element.offsetWidth;
 	this.cacheElementHeight = this.element.offsetHeight;
@@ -85,8 +114,11 @@ PandaCarousel.prototype.getStyleProperty = function(prefixes) {
 
 PandaCarousel.prototype.updateChildren = function() {
 
+	this.dispatchEvent("preupdatechildren");
+
 	this.setChildren(Array.prototype.slice.call(this.element.children, 0));
-	this.updateButtons();
+	
+	this.dispatchEvent("postupdatechildren");
 
 };
 
@@ -272,13 +304,15 @@ PandaCarousel.prototype.undoChildStyles = function() {
 PandaCarousel.prototype.gotoPage = function(page) {
 
 	if (page >= 0 && page < this.pageCount) {
-
+		
+		this.dispatchEvent("pregotopage", page);
+		
 		this.startAnimation();
 
 		this.currentPage = page;
 		this.setOffsetToCurrentPage();
-
-		this.updateButtons();
+		
+		this.dispatchEvent("postgotopage", page);
 
 	}
 
@@ -332,69 +366,6 @@ PandaCarousel.prototype.last = function() {
 
 };
 
-PandaCarousel.prototype.addButtons = function() {
-
-	// The buttons may have already been created
-	if (!this.previousButton) {
-		this.previousButton = document.createElement('button');
-		this.previousButton.className = 'previous';
-		this.previousButton.innerHTML = '‹';
-		this.element.parentNode.appendChild(this.nextButton);
-	}
-
-	if (!this.nextButton) {
-		this.nextButton = document.createElement('button');
-		this.nextButton.className = 'next';
-		this.nextButton.innerHTML = '›';
-		this.element.parentNode.appendChild(this.nextButton);
-	}
-
-};
-
-PandaCarousel.prototype.removeButtons = function() {
-
-	// You should also remove the events!
-
-	// Make sure the buttons are connected to the DOM first
-	if (this.previousButton.parentNode === this.element.parentNode) {
-		this.element.parentNode.removeChild(this.previousButton);
-	}
-	if (this.nextButton.parentNode === this.element.parentNode) {
-		this.element.parentNode.removeChild(this.nextButton);
-	}
-
-	this.previousButton = null;
-	this.nextButton = null;
-
-};
-
-PandaCarousel.prototype.updateButtons = function() {
-
-	if (this.canGoPrevious()) {
-
-		this.addClass('pandacarousel-with-previous');
-
-	} else {
-
-		this.removeClass('pandacarousel-with-previous');
-
-	}
-
-	if (this.canGoNext()) {
-
-		this.addClass('pandacarousel-with-next');
-
-	} else {
-
-		this.removeClass('pandacarousel-with-next');
-
-	}
-
-	// These classes may have introduced styles that changed the width of the carousel
-	this.updateDimensions();
-
-};
-
 PandaCarousel.prototype.setLayout = function(childrenPerPage, horizontal) {
 
 	this.childrenPerPage = childrenPerPage;
@@ -409,20 +380,7 @@ PandaCarousel.prototype.initEvents = function() {
 
 	this.listeners.push([window, 'resize',
 		function(e) {
-			_this.updateDimensions();
-		},
-		false
-	]);
-
-	this.listeners.push([this.previousButton, 'click',
-		function() {
-			_this.previous();
-		},
-		false
-	]);
-	this.listeners.push([this.nextButton, 'click',
-		function() {
-			_this.next();
+			_this.cacheDimensions();
 		},
 		false
 	]);
@@ -446,13 +404,15 @@ PandaCarousel.prototype.initEvents = function() {
 
 PandaCarousel.prototype.destroy = function() {
 
+	this.dispatchEvent("predestroy");
+
 	// Remove any style we applied to the children
 	this.undoChildStyles();
 
 	// Remove the children (the leaves the elements where they are but removes our reference to them)
 	this.setChildren([]);
 
-	// Remove all the event listeners
+	// Remove all the browser event listeners
 	var listener;
 	while (listener = this.listeners.pop()) {
 
@@ -468,17 +428,17 @@ PandaCarousel.prototype.destroy = function() {
 
 	}
 
-	// Remove the buttons
-	this.removeButtons();
-
 	// Remove any classes that many have been added
 	this.removeClass('pandacarousel-live');
-	this.removeClass('pandacarousel-with-previous');
-	this.removeClass('pandacarousel-with-next');
 
 	// Finally remove our reference to the main carousel element
 	// After this nothing will work properly
 	this.element = null;
+
+	this.dispatchEvent("postdestroy");
+	
+	// Remove all the PandaCarousel event listeners
+	this.eventListeners = null;
 
 };
 
