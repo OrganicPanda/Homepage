@@ -9,9 +9,9 @@
 			previousButton : document.getElementById('standard-carousel-previous'),
 			nextButton : document.getElementById('standard-carousel-next'),
 			plugins : [
-				PandaCarouselSwipePlugin,
+				//PandaCarouselSwipePlugin,
 				PandaCarouselButtonsPlugin,
-				PandaCarouselPagedLayoutPlugin
+				PandaCarouselBasicLayoutPlugin
 			]
 		});
 

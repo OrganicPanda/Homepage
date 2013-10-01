@@ -2,7 +2,7 @@
 
 .pandacarousel {
 	width: 100%;
-	height: 15em;
+	padding-top: 100%;
 	@include box-shadow(#CACACA 0 0 0.7em);
 
 	/* Courtesy of by Atle Mo (design), Lea Verou (code) http://lea.verou.me/css3patterns/#carbon-fibre */
@@ -18,6 +18,11 @@
 }
 
 .pandacarousel .panel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	background-position: 50% 50%;
 	background-size: cover;
 }
