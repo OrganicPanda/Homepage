@@ -26,7 +26,7 @@ function PandaCarousel(element, options) {
 	}
 	
 	// We are now live
-	this.addClass('pandacarousel-live');
+	this.addClass('pandacarousel');
 
 }
 
@@ -129,7 +129,7 @@ PandaCarousel.prototype.destroy = function() {
 	this.dispatchEvent("predestroy");
 
 	// Remove any classes that many have been added
-	this.removeClass('pandacarousel-live');
+	this.removeClass('pandacarousel');
 
 	// Even though this is called postdestroy it needs to be called now before we lose this.element
 	// and the ability to do events with this.eventListeners

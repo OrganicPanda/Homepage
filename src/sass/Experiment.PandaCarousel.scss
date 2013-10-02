@@ -1,8 +1,7 @@
 @import "compass/css3";
 
-.pandacarousel {
+.gallery {
 	width: 100%;
-	padding-top: 100%;
 	@include box-shadow(#CACACA 0 0 0.7em);
 
 	/* Courtesy of by Atle Mo (design), Lea Verou (code) http://lea.verou.me/css3patterns/#carbon-fibre */
@@ -14,17 +13,12 @@
 	);
 	background-color: #282828;
 	background-size: 0.8em 0.8em;
-
 }
 
-.pandacarousel .panel {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-position: 50% 50%;
-	background-size: cover;
+.gallery img {
+	max-width: 100%;
+	display: block;
+	margin: 0 auto;
 }
 
 .pandacarousel-buttons {

@@ -1,13 +1,13 @@
 (function() {
 
-	var standardCarousel;
+	var galleryCarousel;
 
-	var createStandardCarousel = function() {
+	var createGalleryCarousel = function() {
 
-		standardCarousel = new PandaCarousel(document.getElementById('standard-carousel'), {
-			childrenPerPage : 4,
-			previousButton : document.getElementById('standard-carousel-previous'),
-			nextButton : document.getElementById('standard-carousel-next'),
+		galleryCarousel = new PandaCarousel(document.getElementById('gallery'), {
+			//childrenPerPage : 4,
+			// previousButton : document.getElementById('gallery-previous'),
+			// nextButton : document.getElementById('gallery-next'),
 			plugins : [
 				//PandaCarouselSwipePlugin,
 				PandaCarouselButtonsPlugin,
@@ -17,19 +17,19 @@
 
 	};
 
-	var createButton = document.getElementById('standard-carousel-create');
-	createButton.addEventListener("click", createStandardCarousel);
+	var createButton = document.getElementById('gallery-create');
+	createButton.addEventListener("click", createGalleryCarousel);
 
-	var destroyButton = document.getElementById('standard-carousel-destroy');
+	var destroyButton = document.getElementById('gallery-destroy');
 	destroyButton.addEventListener("click", function() {
 
-		if (standardCarousel) {
-			standardCarousel.destroy();
-			standardCarousel = null;
+		if (galleryCarousel) {
+			galleryCarousel.destroy();
+			galleryCarousel = null;
 		}
 
 	});
 	
-	createStandardCarousel();
+	//createGalleryCarousel();
 
 })();

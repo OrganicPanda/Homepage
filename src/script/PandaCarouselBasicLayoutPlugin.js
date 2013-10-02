@@ -9,8 +9,9 @@ function PandaCarouselBasicLayoutPlugin(carousel) {
 	
 	// Init our pages
 	this.pageElements = [];
-	this.pageElementsInitialDisplayValue = [];
+	this.pageElementsOriginalStyles = {};
 	this.initPages();
+	this.setInitialStyles();
 	
 }
 
@@ -21,19 +22,42 @@ PandaCarouselBasicLayoutPlugin.prototype.initPages = function() {
 	this.pageElements = Array.prototype.slice.call(this.carousel.element.children, 0);
 	this.carousel.setPageCount(this.pageElements.length);
 	
-	// Hide all the pages except the current one
-	for (var e = this.pageElements.length - 1; e >= 0; e--) {
-		this.pageElementsInitialDisplayValue[e] = this.pageElements[e].style.display;
-		this.pageElements[e].style.display = this.carousel.currentPage == e ? 'block' : 'none';
+};
+
+// Modify each page's styles so that it's ready for action
+PandaCarouselBasicLayoutPlugin.prototype.setInitialStyles = function() {
+
+	// Set up the storage for these styles
+	this.pageElementsOriginalStyles['display'] = [];
+	var e;
+
+	// First cache the original style
+	for (e = this.pageElements.length - 1; e >= 0; e--) {
+		this.pageElementsOriginalStyles['display'][e] = this.pageElements[e].style.display;
 	}
 	
+	// Hide all the pages except the current one
+	for (e = this.pageElements.length - 1; e >= 0; e--) {
+		this.pageElements[e].style.display = this.carousel.currentPage == e ? this.pageElementsOriginalStyles['display'][e] : 'none';
+	}
+
 };
 
 // Move from one page to another in just about the simplest way possible
 PandaCarouselBasicLayoutPlugin.prototype.showPage = function(previousPage, page) {
 
 	this.pageElements[previousPage].style.display = 'none';
-	this.pageElements[page].style.display = 'block';
+	this.pageElements[page].style.display = this.pageElementsOriginalStyles['display'][page];
+
+};
+
+// Modify each page's styles so that they are as before we started
+PandaCarouselBasicLayoutPlugin.prototype.resetOriginalStyles = function() {
+
+	// Put all the original styles back
+	for (var e = this.pageElements.length - 1; e >= 0; e--) {
+		this.pageElements[e].style.display = this.pageElementsOriginalStyles['display'][e];
+	}
 
 };
 
@@ -43,11 +67,9 @@ PandaCarouselBasicLayoutPlugin.prototype.destroy = function() {
 	// Remove any listeners we were using
 	this.carousel.removeEventListener("predestroy", this.preDestroyEventId);
 	this.carousel.removeEventListener("postgotopage", this.postGotoPageEventId);
-	
-	// Put all the original styles back
-	for (var e = this.pageElements.length - 1; e >= 0; e--) {
-		this.pageElements[e].style.display = this.pageElementsInitialDisplayValue[e];
-	}
+
+	// Undo our style changes
+	this.resetOriginalStyles();
 	
 	// Remove our reference to the PandaCarousel instance
 	this.carousel = null;
