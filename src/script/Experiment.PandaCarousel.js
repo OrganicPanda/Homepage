@@ -11,7 +11,8 @@
 			plugins : [
 				//PandaCarouselSwipePlugin,
 				PandaCarouselButtonsPlugin,
-				PandaCarouselBasicLayoutPlugin
+				//PandaCarouselBasicLayoutPlugin
+				PandaCarouselSlideLayoutPlugin
 			]
 		});
 
@@ -30,6 +31,6 @@
 
 	});
 	
-	//createGalleryCarousel();
+	createGalleryCarousel();
 
 })();
