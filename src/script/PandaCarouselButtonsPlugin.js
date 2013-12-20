@@ -4,8 +4,8 @@ function PandaCarouselButtonsPlugin(carousel) {
 	this.carousel = carousel;
 
 	// The buttons may already exist
-	this.previousButton = (this.carousel.options.previousButton === undefined) ? null : this.carousel.options.previousButton;
-	this.nextButton = (this.carousel.options.nextButton === undefined) ? null : this.carousel.options.nextButton;
+	this.previousButton = this.carousel.options.previousButton || null;
+	this.nextButton = this.carousel.options.nextButton || null;
 	
 	// Add the buttons if required
 	this.addButtons();
