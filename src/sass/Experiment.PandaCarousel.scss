@@ -30,6 +30,10 @@
 	margin: 0 auto;
 }
 
+.gallery.pandacarousel-slide-layout img {
+	transition: left 0.2s ease;
+}
+
 .pandacarousel-buttons {
 	margin-left: 10%;
 	margin-right: 20%;
