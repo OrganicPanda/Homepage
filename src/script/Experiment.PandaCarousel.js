@@ -9,7 +9,7 @@ window.onload = function() {
 			// previousButton : document.getElementById('gallery-previous'),
 			// nextButton : document.getElementById('gallery-next'),
 			plugins : [
-				//PandaCarouselSwipePlugin,
+				PandaCarouselSwipePlugin,
 				PandaCarouselButtonsPlugin,
 				//PandaCarouselBasicLayoutPlugin
 				PandaCarouselSlideLayoutPlugin,

@@ -7,6 +7,7 @@ function PandaCarouselSwipePlugin(carousel, options) {
 	this.initEvents();
 	
 	this.preDestroyEventId = this.carousel.addEventListener("predestroy", this.destroy.bind(this));
+	this.carousel.addClass('pandacarousel-swipe');
 	
 };
 
@@ -14,10 +15,6 @@ PandaCarouselSwipePlugin.prototype.initEvents = function() {
 
 	this.lastXY = {};
 	this.distanceXY = {};
-	this.axisLocked = false;
-	this.AXIS_X = 0;
-	this.AXIS_Y = 1;
-	this.axis = this.AXIS_X;
 	this.swipeSnapPercent = (this.options.swipeSnapPercent === undefined) ? 15 : this.options.swipeSnapPercent;
 	
 	// Pointers encapsulate the other stuff so check for them
@@ -71,7 +68,7 @@ PandaCarouselSwipePlugin.prototype.initEvents = function() {
 
 };
 
-// ne to: http://blogs.msdn.com/b/ie/archive/2011/10/19/handling-multi-touch-and-mouse-input-in-all-browsers.aspx
+// Props to: http://blogs.msdn.com/b/ie/archive/2011/10/19/handling-multi-touch-and-mouse-input-in-all-browsers.aspx
 PandaCarouselSwipePlugin.prototype.handleEvent = function(eventObject) {
 
 	// If we have an array of changedTouches, use it, else create an array of one with our eventObject
@@ -147,7 +144,7 @@ PandaCarouselSwipePlugin.prototype.handleEvent = function(eventObject) {
 PandaCarouselSwipePlugin.prototype.startDraw = function(eventObject, id, x, y) {
 
 	// Turn animation off during draw
-	this.carousel.stopAnimation();
+	//this.carousel.stopAnimation();
 
 	// Start recording the distance
 	this.distanceXY[id] = {
@@ -163,70 +160,51 @@ PandaCarouselSwipePlugin.prototype.extendDraw = function(eventObject, id, x, y, 
 	this.distanceXY[id].x += deltaX;
 	this.distanceXY[id].y += deltaY;
 
-	if ((this.distanceXY[id].x > 5 || this.distanceXY[id].x < -5) && this.axisLocked == false) {
-
-		this.axis = (Math.abs(this.distanceXY[id].y) > Math.abs(this.distanceXY[id].x)) ? this.AXIS_Y : this.AXIS_X;
-
-		this.axisLocked = true;
-
+	// Stop panning and zooming so we can draw
+	if (eventObject.preventManipulation) {
+		eventObject.preventManipulation();
 	}
 
-	// Only take action if the axis is locked to X
-	if (this.axisLocked && this.axis == this.AXIS_X) {
-
-		// Stop panning and zooming so we can draw
-		if (eventObject.preventManipulation) {
-			eventObject.preventManipulation();
-		}
-
-		// We are handling this event
-		if (eventObject.preventDefault) {
-			eventObject.preventDefault();
-		}
-
-		this.carousel.setRelativeOffset(-((deltaX / this.carousel.cacheElementWidth) * 100));
-
+	// We are handling this event
+	if (eventObject.preventDefault) {
+		eventObject.preventDefault();
 	}
+
+	// this.carousel.setRelativeOffset(-((deltaX / this.carousel.cacheElementWidth) * 100));
 
 };
 
 PandaCarouselSwipePlugin.prototype.endDraw = function(eventObject, id) {
 
-	// Only take action if the axis is locked to X
-	if (this.axisLocked && this.axis == this.AXIS_X) {
+	// Stop panning and zooming so we can draw
+	if (eventObject.preventManipulation) {
+		eventObject.preventManipulation();
+	}
 
-		// Stop panning and zooming so we can draw
-		if (eventObject.preventManipulation) {
-			eventObject.preventManipulation();
-		}
+	// We are handling this event
+	if (eventObject.preventDefault) {
+		eventObject.preventDefault();
+	}
 
-		// We are handling this event
-		if (eventObject.preventDefault) {
-			eventObject.preventDefault();
-		}
+	// Did we move enough?
+	if (((Math.abs(this.distanceXY[id].x) / this.carousel.cacheElementWidth) * 100) > this.swipeSnapPercent) {
 
-		// Did we move enough?
-		if (((Math.abs(this.distanceXY[id].x) / this.carousel.cacheElementWidth) * 100) > this.swipeSnapPercent) {
-
-			// Yes! Which way was the swipe?
-			// Move in that direction
-			if (this.distanceXY[id].x > 0) {
-				this.carousel.previous();
-			} else {
-				this.carousel.next(); 
-			}
-
+		// Yes! Which way was the swipe?
+		// Move in that direction
+		if (this.distanceXY[id].x > 0) {
+			this.carousel.previous();
 		} else {
-
-			// No, stay on the current page
-			this.carousel.gotoPage(this.carousel.currentPage);
-
+			this.carousel.next(); 
 		}
+
+	} else {
+
+		// No, stay on the current page
+		this.carousel.gotoPage(this.carousel.currentPage);
 
 	}
 
 	// End this touch
-	this.axisLocked = false;
 	delete this.distanceXY[id];
 
 };
@@ -234,6 +212,7 @@ PandaCarouselSwipePlugin.prototype.endDraw = function(eventObject, id) {
 PandaCarouselSwipePlugin.prototype.destroy = function() {
 
 	this.carousel.removeEventListener("predestroy", this.preDestroyEventId);
+	this.carousel.removeClass('pandacarousel-swipe');
 
 	// Remove all the event listeners
 	var listener;

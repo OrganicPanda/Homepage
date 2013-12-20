@@ -23,6 +23,19 @@
 	overflow: hidden;
 }
 
+/* The swipe plugin requires extra touch stuff */
+.gallery.pandacarousel-swipe img {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+	-ms-touch-action: none;
+	touch-action: none;
+}
+
 .gallery img {
 	max-width: 100%;
 	max-height: 100%;
