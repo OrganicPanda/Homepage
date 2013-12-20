@@ -7,11 +7,16 @@ function PandaCarouselSlideLayoutPlugin(carousel) {
 	// Set up some listeners
 	this.preDestroyEventId = this.carousel.addEventListener("predestroy", this.destroy.bind(this));
 	this.postGotoPageEventId = this.carousel.addEventListener("postgotopage", this.showPage.bind(this));
+	this.postUpdateDimentionsEventId = this.carousel.addEventListener("postupdatedimensions", this.computeOffsetStyles.bind(this));
 	
 	// Init our pages
 	this.pageElements = [];
+	this.pageElementsPixelWidths = [];
+	this.pageElementsPercentWidths = [];
+	this.pageElementsPercentOffsets = [];
 	this.pageElementsOriginalStyles = {};
 	this.initPages();
+	this.storeOriginalStyles();
 	this.setInitialStyles();
 	
 }
@@ -25,8 +30,8 @@ PandaCarouselSlideLayoutPlugin.prototype.initPages = function() {
 	
 };
 
-// Modify each page's styles so that it's ready for action
-PandaCarouselSlideLayoutPlugin.prototype.setInitialStyles = function() {
+// Make sure we record the styles before we change anything
+PandaCarouselSlideLayoutPlugin.prototype.storeOriginalStyles = function() {
 
 	// Set up the storage for these styles
 	this.pageElementsOriginalStyles['position'] = [];
@@ -34,19 +39,22 @@ PandaCarouselSlideLayoutPlugin.prototype.setInitialStyles = function() {
 	this.pageElementsOriginalStyles['left'] = [];
 	var e;
 
-	// Change the carousel styles first
-	this.carousel.element.style.position = 'relative';
-	this.carousel.element.style.overflow = 'hidden';
-
-	// First cache the original style
-	for (e = this.pageElements.length - 1; e >= 0; e--) {
+	// First cache the original styles
+	for (e = 0; e < this.pageElements.length; e++) {
 		this.pageElementsOriginalStyles['position'][e] = this.pageElements[e].style.position;
 		this.pageElementsOriginalStyles['top'][e] = this.pageElements[e].style.top;
 		this.pageElementsOriginalStyles['left'][e] = this.pageElements[e].style.left;
 	}
+
+};
+
+// Modify each page's styles so that it's ready for action
+PandaCarouselSlideLayoutPlugin.prototype.setInitialStyles = function() {
+
+	// Change the carousel styles first
+	this.carousel.addClass('pandacarousel-slide-layout');
 	
-	// Hide all the pages except the current one
-	for (e = this.pageElements.length - 1; e >= 0; e--) {
+	for (var e = 0; e < this.pageElements.length; e++) {
 		this.pageElements[e].style.position = 'absolute';
 		this.pageElements[e].style.top = 0;
 		this.pageElements[e].style.left = 0;
@@ -54,10 +62,46 @@ PandaCarouselSlideLayoutPlugin.prototype.setInitialStyles = function() {
 
 };
 
-// Move from one page to another in just about the simplest way possible
+// Put the page elements where they should be
+PandaCarouselSlideLayoutPlugin.prototype.computeOffsetStyles = function() {
+
+	// Collect the width for each page
+	for (var e = 0; e < this.pageElements.length; e++) {
+		this.pageElementsPixelWidths[e] = this.pageElements[e].offsetWidth;
+	}
+
+	// Translate those widths in to percentages based on the current size of the carousel
+	var totalPixelWidth = this.carousel.cacheElementWidth;
+	var currentPercentWidth = 0;
+	var currentPercentOffset = 0;
+	for (e = 0; e < this.pageElements.length; e++) {
+		currentPercentWidth = (100 / totalPixelWidth) * this.pageElementsPixelWidths[e];
+		this.pageElementsPercentOffsets[e] = currentPercentOffset;
+		currentPercentOffset += currentPercentWidth;
+	}
+
+	// Apply the offsets
+	this.applyOffsetStyles(this.carousel.currentPage);
+
+};
+
+// Handle a page change
 PandaCarouselSlideLayoutPlugin.prototype.showPage = function(previousPage, page) {
 
-	//this.pageElements[page].style.display = this.pageElementsOriginalStyles['display'][page];
+	this.applyOffsetStyles(page);
+
+};
+
+// Render with the given active page
+PandaCarouselSlideLayoutPlugin.prototype.applyOffsetStyles = function(page) {
+
+	// Get the target offset
+	var targetOffset = this.pageElementsPercentOffsets[page];
+
+	// Shift everything over by that amount
+	for (var e = 0; e < this.pageElements.length; e++) {
+		this.pageElements[e].style.left = (this.pageElementsPercentOffsets[e] - targetOffset) + '%';
+	}
 
 };
 
@@ -72,8 +116,7 @@ PandaCarouselSlideLayoutPlugin.prototype.resetOriginalStyles = function() {
 	}
 
 	// Change the carousel styles back
-	this.carousel.element.style.position = null;
-	this.carousel.element.style.overflow = null;
+	this.carousel.removeClass('pandacarousel-slide-layout');
 
 };
 

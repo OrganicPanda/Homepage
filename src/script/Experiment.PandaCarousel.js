@@ -1,4 +1,4 @@
-(function() {
+window.onload = function() {
 
 	var galleryCarousel;
 
@@ -12,7 +12,8 @@
 				//PandaCarouselSwipePlugin,
 				PandaCarouselButtonsPlugin,
 				//PandaCarouselBasicLayoutPlugin
-				PandaCarouselSlideLayoutPlugin
+				PandaCarouselSlideLayoutPlugin,
+				PandaCarouselResizePlugin
 			]
 		});
 
@@ -33,4 +34,4 @@
 	
 	createGalleryCarousel();
 
-})();
+};

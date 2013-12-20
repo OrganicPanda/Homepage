@@ -16,9 +16,11 @@
 }
 
 
-/* Only set a height once the carousel is loaded */
-.gallery.pandacarousel {
+/* The slide layout requires a height and position */
+.gallery.pandacarousel-slide-layout {
 	height: 10em;
+	position: relative;
+	overflow: hidden;
 }
 
 .gallery img {

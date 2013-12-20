@@ -28,9 +28,21 @@ function PandaCarousel(element, options) {
 	// We are now live
 	this.addClass('pandacarousel');
 
+	// Cache our dimentions incase they are needed
+	this.updateDimensions();
+
 }
 
+PandaCarousel.prototype.updateDimensions = function() {
 
+	this.dispatchEvent("preupdatedimensions", this.cacheElementWidth, this.cacheElementHeight);
+
+    this.cacheElementWidth = this.element.offsetWidth;
+    this.cacheElementHeight = this.element.offsetHeight;
+
+    this.dispatchEvent("postupdatedimensions", this.cacheElementWidth, this.cacheElementHeight);
+
+};
 
 // API functions
 
