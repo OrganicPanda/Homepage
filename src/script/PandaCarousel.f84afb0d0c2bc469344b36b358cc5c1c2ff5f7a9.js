@@ -1,21 +1,26 @@
 function PandaCarousel(element, options) {
-	
+
 	// This is the container element that will will make in to a carousel
 	this.element = element;
-	
+
 	// This is the user config object
 	this.options = options || {};
-	
+
 	// Store all of the event handlers under the event name
 	this.eventListeners = {};
 
 	// Store a few details about page state
 	// A page is just an index from 0 to this.pageCount - 1, it can be displayed in any way.
-	// Layout plugins are expected to react to page changes and 
-	// display the current page as they see fit 
+	// Layout plugins are expected to react to page changes and
+	// display the current page as they see fit
 	this.pageCount = 0;
 	this.previousPage = 0;
 	this.currentPage = 0;
+
+	// Plugins can set an offset that layouts can use when rendering
+	// This is useful for shifting content on drag/swipe etc..
+	// This should be in pixels
+	this.offset = { x: 0, y: 0 };
 
 	// Do we have plugins to set up?
 	// Thanks to bespoke.js (A much better carousel, but you didn't hear that from me!) for this idea
@@ -24,7 +29,7 @@ function PandaCarousel(element, options) {
 			options.plugins[i] = new options.plugins[i](this);
 		}
 	}
-	
+
 	// We are now live
 	this.addClass('pandacarousel');
 
@@ -51,15 +56,15 @@ PandaCarousel.prototype.setPageCount = function(pageCount) {
 
 	// No negative numbers please
 	if (pageCount >= 0) {
-		
+
 		var oldPageCount = this.pageCount;
-		
+
 		this.dispatchEvent("presetpagecount", this.pageCount, pageCount);
-		
+
 		this.pageCount = pageCount;
-		
+
 		this.dispatchEvent("postsetpagecount", oldPageCount, this.pageCount);
-		
+
 	}
 
 };
@@ -69,12 +74,12 @@ PandaCarousel.prototype.gotoPage = function(page) {
 
 	// Check the destination page exists
 	if (page >= 0 && page < this.pageCount) {
-		
+
 		this.dispatchEvent("pregotopage", this.currentPage, page);
 
 		this.previousPage = this.currentPage;
 		this.currentPage = page;
-		
+
 		this.dispatchEvent("postgotopage", this.previousPage, this.currentPage);
 
 	}
@@ -150,7 +155,7 @@ PandaCarousel.prototype.destroy = function() {
 	// Remove our reference to the main carousel element.
 	// After this nothing will work properly
 	this.element = null;
-	
+
 	// Remove all the PandaCarousel event listeners
 	this.eventListeners = null;
 
@@ -159,7 +164,7 @@ PandaCarousel.prototype.destroy = function() {
 // Event handling code
 
 PandaCarousel.prototype.dispatchEvent = function(eventName){
-	
+
 	var callbacks = this.eventListeners[eventName] || [];
 	var callback;
 	var eventArgs = Array.prototype.slice.call(arguments, 1);
@@ -196,7 +201,7 @@ PandaCarousel.prototype.removeEventListener = function(eventName, id) {
 // Utility Functions
 
 // Thanks to: http://stackoverflow.com/questions/7212102/detect-with-javascript-or-jquery-if-css-transform-2d-is-available
-// Returns null when no support is found 
+// Returns null when no support is found
 /*andaCarousel.prototype.getStyleProperty = function(prefixes) {
 
 	var prefix,
@@ -236,7 +241,7 @@ PandaCarousel.prototype.addClass = function(clsName) {
 	}
 };
 
-// Remove classname from element, if it exists 
+// Remove classname from element, if it exists
 PandaCarousel.prototype.removeClass = function(clsName) {
 	var regex = new RegExp("(^|\\s)" + clsName + "(\\s|$)");
 	this.element.className = this.element.className.replace(regex, " ");

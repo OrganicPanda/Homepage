@@ -3,12 +3,13 @@ function PandaCarouselSlideLayoutPlugin(carousel) {
 
 	// Store a reference to the PandaCarousel instance
 	this.carousel = carousel;
-	
+
 	// Set up some listeners
 	this.preDestroyEventId = this.carousel.addEventListener("predestroy", this.destroy.bind(this));
-	this.postGotoPageEventId = this.carousel.addEventListener("postgotopage", this.showPage.bind(this));
+	this.postGotoPageEventId = this.carousel.addEventListener("postgotopage", this.render.bind(this));
 	this.postUpdateDimentionsEventId = this.carousel.addEventListener("postupdatedimensions", this.computeOffsetStyles.bind(this));
-	
+	this.renderEventId = this.carousel.addEventListener("render", this.render.bind(this));
+
 	// Init our pages
 	this.pageElements = [];
 	this.pageElementsPixelWidths = [];
@@ -18,7 +19,7 @@ function PandaCarouselSlideLayoutPlugin(carousel) {
 	this.initPages();
 	this.storeOriginalStyles();
 	this.setInitialStyles();
-	
+
 }
 
 // Set up or update the pages
@@ -27,7 +28,7 @@ PandaCarouselSlideLayoutPlugin.prototype.initPages = function() {
 	// Slice so that nothing else can change our array without us knowing
 	this.pageElements = Array.prototype.slice.call(this.carousel.element.children, 0);
 	this.carousel.setPageCount(this.pageElements.length);
-	
+
 };
 
 // Make sure we record the styles before we change anything
@@ -53,7 +54,7 @@ PandaCarouselSlideLayoutPlugin.prototype.setInitialStyles = function() {
 
 	// Change the carousel styles first
 	this.carousel.addClass('pandacarousel-slide-layout');
-	
+
 	for (var e = 0; e < this.pageElements.length; e++) {
 		this.pageElements[e].style.position = 'absolute';
 		this.pageElements[e].style.top = 0;
@@ -81,26 +82,20 @@ PandaCarouselSlideLayoutPlugin.prototype.computeOffsetStyles = function() {
 	}
 
 	// Apply the offsets
-	this.applyOffsetStyles(this.carousel.currentPage);
-
-};
-
-// Handle a page change
-PandaCarouselSlideLayoutPlugin.prototype.showPage = function(previousPage, page) {
-
-	this.applyOffsetStyles(page);
+	this.render();
 
 };
 
 // Render with the given active page
-PandaCarouselSlideLayoutPlugin.prototype.applyOffsetStyles = function(page) {
+PandaCarouselSlideLayoutPlugin.prototype.render = function() {
 
 	// Get the target offset
-	var targetOffset = this.pageElementsPercentOffsets[page];
+	var targetOffset = this.pageElementsPercentOffsets[this.carousel.currentPage];
+	var carouselOffsetPercent = (100 / this.carousel.cacheElementWidth) * this.carousel.offset.x;
 
 	// Shift everything over by that amount
 	for (var e = 0; e < this.pageElements.length; e++) {
-		this.pageElements[e].style.left = (this.pageElementsPercentOffsets[e] - targetOffset) + '%';
+		this.pageElements[e].style.left = (this.pageElementsPercentOffsets[e] - targetOffset + carouselOffsetPercent) + '%';
 	}
 
 };
@@ -126,11 +121,13 @@ PandaCarouselSlideLayoutPlugin.prototype.destroy = function() {
 	// Remove any listeners we were using
 	this.carousel.removeEventListener("predestroy", this.preDestroyEventId);
 	this.carousel.removeEventListener("postgotopage", this.postGotoPageEventId);
+	this.carousel.removeEventListener("postupdatedimensions", this.postUpdateDimentionsEventId);
+	this.carousel.removeEventListener("render", this.renderEventId);
 
 	// Undo our style changes
 	this.resetOriginalStyles();
-	
+
 	// Remove our reference to the PandaCarousel instance
 	this.carousel = null;
-	
+
 };
