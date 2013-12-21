@@ -28,16 +28,21 @@ module.exports = function(grunt) {
 					cwd: '<%= meta.srcPath %>font',
 					src: ['**'],
 					dest: '<%= meta.buildPath %>font'
-				}, {					
-					expand: true, 
+				}, {
+					expand: true,
 					cwd: '<%= meta.srcPath %>image',
-					src: ['apple-touch-icon.png', 'favicon.ico'], 
+					src: ['apple-touch-icon.png', 'favicon.ico'],
 					dest: '<%= meta.buildPath %>'
-				}, {					
-					expand: true, 
+				}, {
+					expand: true,
 					cwd: '<%= meta.srcPath %>image',
-					src: ['**'], 
+					src: ['**'],
 					dest: '<%= meta.buildPath %>image'
+				}, {
+					expand: true,
+					cwd: '<%= meta.srcPath %>css',
+					src: ['**'],
+					dest: '<%= meta.buildPath %>css'
 				}]
 			}
 		},
@@ -45,9 +50,9 @@ module.exports = function(grunt) {
 		compass: {
 			main: {
 				options: {
-					sassDir: '<%= meta.srcPath %>sass',
+					sassDir: '<%= meta.srcPath %>css',
 					cssDir: '<%= meta.buildPath %>css',
-					imagesPath: '<%= meta.srcPath %>sass/images',
+					imagesPath: '<%= meta.srcPath %>image',
 					outputStyle: 'compressed'
 				}
 			}
@@ -75,19 +80,14 @@ module.exports = function(grunt) {
 				tasks: ['compass']
 
 			},
-			script: {
+			assets: {
 
 				// When these files change
-				files: ['<%= meta.srcPath %>/**/*.js'],
-
-				// Do this
-				tasks: ['copy']
-
-			},
-			image: {
-
-				// When these files change
-				files: ['<%= meta.srcPath %>image/**/*.*'],
+				files: [
+					'<%= meta.srcPath %>/**/*.js',
+					'<%= meta.srcPath %>/**/*.css',
+					'<%= meta.srcPath %>image/**/*.*'
+				],
 
 				// Do this
 				tasks: ['copy']
@@ -103,8 +103,8 @@ module.exports = function(grunt) {
 
 			}
 		},
-		
-		devserver : { 
+
+		devserver : {
 			options: {
 				'port' : 8000,
 				'base' : './build'

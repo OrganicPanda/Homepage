@@ -16,27 +16,27 @@ $background-color: #ededed;
 	@mixin constrain-content($left, $right) {
 		.site-header, .site-nav, .site-footer,
 		h1, h2, h3, h3, h5, h6,
-		p, ol, ul, blockquote {
+		p, ol, ul, blockquote, pre {
 			margin-left: $left;
 			margin-right: $right;
 		}
 	}
 
-/* 	
-	Small Screen 
+/*
+	Small Screen
 
 	The tactic here is:
 	- Single column
 	- Fluid width
 	- Everything should be accessible to old IE
 */
-	
-	html, body { 
-		margin: 0; 
-		padding: 0; 
-		width: 100%; 
-	} 
-	
+
+	html, body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
 	body {
 		background: $background-color;
 		font: normal 100%/1.4 Georgia, 'Times New Roman', serif;
@@ -70,7 +70,7 @@ $background-color: #ededed;
 		margin-top: 0;
 		margin-bottom: 1.5em;
 	}
-	
+
 	p {
 		text-align: justify;
 		-webkit-hyphens: auto;
@@ -90,7 +90,7 @@ $background-color: #ededed;
 	button:hover, button:focus {
 		background-color: lighten(#E6E6E6, 20);
 	}
-	
+
 	.date, .copyright {
 		text-align: center;
 		color: $secondary-color;
@@ -101,9 +101,9 @@ $background-color: #ededed;
 		font-size: 0.8em;
 	}
 
-	.date + p, h1 + p { margin-top: 4em; } 
-	h1 + .date { margin-top: 1.5em; } 
-	
+	.date + p, h1 + p { margin-top: 4em; }
+	h1 + .date { margin-top: 1.5em; }
+
 	@include constrain-content($gutter, $gutter);
 
 	.site-header {
@@ -126,7 +126,7 @@ $background-color: #ededed;
 		color: $primary-color;
     	text-decoration: none;
 	}
-	
+
 	/* Insert the logo in such a way that it scales with the size of the header text.
 		This will not cause any harm to browsers that don't support ::before */
 	.site-header a::before {
@@ -138,7 +138,7 @@ $background-color: #ededed;
 		background-position: 50% 50%;
 		background-size: contain;
 	}
-	
+
 	/* Simple default nav style */
 	.site-nav {
 		margin-bottom: $gutter;
@@ -162,13 +162,13 @@ $background-color: #ededed;
 		background-color: lighten($primary-color, 20);
 	}
 
-/* 	Start enriching things with media queries. 
+/* 	Start enriching things with media queries.
 	Using http://trentwalton.com/ as a text-size guide here.
 	Modified to stick to a 12.5% for every 12.5em rhythm */
 
 	@media screen and (min-width: 25em) {
-	
-		/* 	Move the nav items inline 
+
+		/* 	Move the nav items inline
 			Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
 		.site-nav a {
 			float: left;
@@ -181,40 +181,40 @@ $background-color: #ededed;
 		.site-nav:after {
 			clear: both;
 		}
-	
+
 	}
 
 	@media screen and (min-width: 37.5em) {
-		
+
 		body {
 			font-size: 112.5%;
 		}
-		
+
 	}
 
 	@media screen and (min-width: 50em) {
-		
+
 		body {
 			font-size: 125%;
 		}
-	
-		/* Going for 'Page Harmony' as described here: http://retinart.net/graphic-design/secret-law-of-page-harmony/ */	
+
+		/* Going for 'Page Harmony' as described here: http://retinart.net/graphic-design/secret-law-of-page-harmony/ */
 		@include constrain-content($gutter * 2, $gutter * 4);
-		
+
 	}
 
 	@media screen and (min-width: 62.5em) {
-		
+
 		body {
 			font-size: 137.5%;
 		}
-		
+
 	}
 
 	@media screen and (min-width: 75em) {
-		
+
 		body {
 			font-size: 150%;
 		}
-		
+
 	}
