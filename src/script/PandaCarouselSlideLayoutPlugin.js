@@ -8,6 +8,7 @@ function PandaCarouselSlideLayoutPlugin(carousel) {
 	this.preDestroyEventId = this.carousel.addEventListener("predestroy", this.destroy.bind(this));
 	this.postGotoPageEventId = this.carousel.addEventListener("postgotopage", this.render.bind(this));
 	this.postUpdateDimentionsEventId = this.carousel.addEventListener("postupdatedimensions", this.computeOffsetStyles.bind(this));
+	this.renderOffsetEventId = this.carousel.addEventListener("renderoffset", this.render.bind(this));
 	this.renderEventId = this.carousel.addEventListener("render", this.render.bind(this));
 
 	// Init our pages
@@ -87,15 +88,18 @@ PandaCarouselSlideLayoutPlugin.prototype.computeOffsetStyles = function() {
 };
 
 // Render with the given active page
-PandaCarouselSlideLayoutPlugin.prototype.render = function() {
+PandaCarouselSlideLayoutPlugin.prototype.render = function(carouselOffsetX, carouselOffsetY) {
 
-	// Get the target offset
+	// We have the current page offset as well as any pixel offset on top of that
+	// which could be caused by a drag/slide
+	carouselOffsetX = carouselOffsetX || 0;
+	carouselOffsetY = carouselOffsetY || 0;
+	var carouselOffsetXPercent = (100 / this.carousel.cacheElementWidth) * carouselOffsetX;
 	var targetOffset = this.pageElementsPercentOffsets[this.carousel.currentPage];
-	var carouselOffsetPercent = (100 / this.carousel.cacheElementWidth) * this.carousel.offset.x;
 
 	// Shift everything over by that amount
 	for (var e = 0; e < this.pageElements.length; e++) {
-		this.pageElements[e].style.left = (this.pageElementsPercentOffsets[e] - targetOffset + carouselOffsetPercent) + '%';
+		this.pageElements[e].style.left = (this.pageElementsPercentOffsets[e] - targetOffset + carouselOffsetXPercent) + '%';
 	}
 
 };
@@ -122,6 +126,7 @@ PandaCarouselSlideLayoutPlugin.prototype.destroy = function() {
 	this.carousel.removeEventListener("predestroy", this.preDestroyEventId);
 	this.carousel.removeEventListener("postgotopage", this.postGotoPageEventId);
 	this.carousel.removeEventListener("postupdatedimensions", this.postUpdateDimentionsEventId);
+	this.carousel.removeEventListener("renderoffset", this.renderOffsetEventId);
 	this.carousel.removeEventListener("render", this.renderEventId);
 
 	// Undo our style changes

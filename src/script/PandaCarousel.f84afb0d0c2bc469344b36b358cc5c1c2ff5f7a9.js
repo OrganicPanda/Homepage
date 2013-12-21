@@ -17,11 +17,6 @@ function PandaCarousel(element, options) {
 	this.previousPage = 0;
 	this.currentPage = 0;
 
-	// Plugins can set an offset that layouts can use when rendering
-	// This is useful for shifting content on drag/swipe etc..
-	// This should be in pixels
-	this.offset = { x: 0, y: 0 };
-
 	// Do we have plugins to set up?
 	// Thanks to bespoke.js (A much better carousel, but you didn't hear that from me!) for this idea
 	if (typeof options.plugins != 'undefined') {

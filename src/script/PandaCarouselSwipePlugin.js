@@ -157,8 +157,6 @@ PandaCarouselSwipePlugin.prototype.extendDraw = function(eventObject, id, x, y, 
 	// Add on the movement
 	this.distanceXY[id].x += deltaX;
 	this.distanceXY[id].y += deltaY;
-	this.carousel.offset.x = this.distanceXY[id].x;
-	this.carousel.offset.y = this.distanceXY[id].y;
 
 	// Stop panning and zooming so we can draw
 	if (eventObject.preventManipulation) {
@@ -171,7 +169,7 @@ PandaCarouselSwipePlugin.prototype.extendDraw = function(eventObject, id, x, y, 
 	}
 
 	// Cause a re-render
-	this.carousel.dispatchEvent("render");
+	this.carousel.dispatchEvent("renderoffset", this.distanceXY[id].x, this.distanceXY[id].y);
 
 };
 
@@ -206,9 +204,7 @@ PandaCarouselSwipePlugin.prototype.endDraw = function(eventObject, id) {
 	}
 
 	// Reset the offset
-	this.carousel.offset.x = 0;
-	this.carousel.offset.y = 0;
-	this.carousel.dispatchEvent("render");
+	this.carousel.dispatchEvent("renderoffset", 0, 0);
 	this.carousel.removeClass('pandacarousel-swipe-swiping');
 
 	// End this touch
