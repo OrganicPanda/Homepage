@@ -6,9 +6,9 @@
 
 	/* Courtesy of by Atle Mo (design), Lea Verou (code) http://lea.verou.me/css3patterns/#carbon-fibre */
 	@include background(
-		radial-gradient(black 15%, transparent 16%) 0 0, 
-		radial-gradient(black 15%, transparent 16%) 0.4em 0.4em, 
-		radial-gradient(hsla(0, 100%, 100%, 0.1) 15%, transparent 20%) 0 0.05em, 
+		radial-gradient(black 15%, transparent 16%) 0 0,
+		radial-gradient(black 15%, transparent 16%) 0.4em 0.4em,
+		radial-gradient(hsla(0, 100%, 100%, 0.1) 15%, transparent 20%) 0 0.05em,
 		radial-gradient(hsla(0, 100%, 100%, 0.1) 15%, transparent 20%) 0.4em 0.45em
 	);
 	background-color: #282828;
@@ -31,9 +31,11 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	
+
 	-ms-touch-action: none;
 	touch-action: none;
+
+	pointer-events: none;
 }
 
 .gallery img {
@@ -43,8 +45,8 @@
 	margin: 0 auto;
 }
 
-.gallery.pandacarousel-slide-layout img {
-	transition: left 0.2s ease;
+.gallery.pandacarousel-slide-layout:not(.pandacarousel-swipe-swiping) img {
+	transition: left 0.2s ease, margin-left 0.2s ease;
 }
 
 .pandacarousel-buttons {

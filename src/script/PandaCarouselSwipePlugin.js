@@ -1,14 +1,59 @@
 function PandaCarouselSwipePlugin(carousel, options) {
 
 	// Store a reference to the PandaCarousel instance
-	this.carousel = carousel;	
+	this.carousel = carousel;
 	this.options = options || {};
 
+	this.initPages();
 	this.initEvents();
-	
+	this.pageElementsOriginalStyles = {};
+	this.storeOriginalStyles();
+	this.setInitialStyles();
+
 	this.preDestroyEventId = this.carousel.addEventListener("predestroy", this.destroy.bind(this));
+
+}
+
+// Set up or update the pages
+PandaCarouselSwipePlugin.prototype.initPages = function() {
+
+	// Slice so that nothing else can change our array without us knowing
+	this.pageElements = Array.prototype.slice.call(this.carousel.element.children, 0);
+
+};
+
+
+// Make sure we record the styles before we change anything
+PandaCarouselSwipePlugin.prototype.storeOriginalStyles = function() {
+
+	// Set up the storage for these styles
+	this.pageElementsOriginalStyles['marginLeft'] = [];
+
+	// First cache the original styles
+	for (var e = 0; e < this.pageElements.length; e++) {
+		this.pageElementsOriginalStyles['marginLeft'][e] = this.pageElements[e].style.marginLeft;
+	}
+
+};
+
+// Modify each page's styles so that it's ready for action
+PandaCarouselSwipePlugin.prototype.setInitialStyles = function() {
+
+	// Change the carousel styles first
 	this.carousel.addClass('pandacarousel-swipe');
-	
+
+	this.renderOffset(0);
+
+};
+
+// Move the pages by a pixel offset
+PandaCarouselSwipePlugin.prototype.renderOffset = function(offset) {
+
+	// Shift everything over by that amount
+	for (var e = 0; e < this.pageElements.length; e++) {
+		this.pageElements[e].style.marginLeft = offset + 'px';
+	}
+
 };
 
 PandaCarouselSwipePlugin.prototype.initEvents = function() {
@@ -16,7 +61,7 @@ PandaCarouselSwipePlugin.prototype.initEvents = function() {
 	this.lastXY = {};
 	this.distanceXY = {};
 	this.swipeSnapPercent = (this.options.swipeSnapPercent === undefined) ? 15 : this.options.swipeSnapPercent;
-	
+
 	// Pointers encapsulate the other stuff so check for them
 	if (window.navigator.msPointerEnabled) {
 
@@ -52,7 +97,7 @@ PandaCarouselSwipePlugin.prototype.initEvents = function() {
 
 	var _this = this;
 	this.listeners = [];
-	
+
 	for (var e = 0, el = this.events.length; e < el; e++) {
 		this.listeners.push([this.carousel.element, this.events[e],
 			function(e) {
@@ -61,7 +106,7 @@ PandaCarouselSwipePlugin.prototype.initEvents = function() {
 			false
 		]);
 	}
-	
+
 	for (var l = this.listeners.length - 1; l >= 0; l--) {
 		this.listeners[l][0].addEventListener(this.listeners[l][1], this.listeners[l][2], this.listeners[l][3]);
 	};
@@ -144,7 +189,7 @@ PandaCarouselSwipePlugin.prototype.handleEvent = function(eventObject) {
 PandaCarouselSwipePlugin.prototype.startDraw = function(eventObject, id, x, y) {
 
 	// Turn animation off during draw
-	//this.carousel.stopAnimation();
+	this.carousel.addClass('pandacarousel-swipe-swiping');
 
 	// Start recording the distance
 	this.distanceXY[id] = {
@@ -170,7 +215,7 @@ PandaCarouselSwipePlugin.prototype.extendDraw = function(eventObject, id, x, y, 
 		eventObject.preventDefault();
 	}
 
-	// this.carousel.setRelativeOffset(-((deltaX / this.carousel.cacheElementWidth) * 100));
+	this.renderOffset(this.distanceXY[id].x);
 
 };
 
@@ -194,7 +239,7 @@ PandaCarouselSwipePlugin.prototype.endDraw = function(eventObject, id) {
 		if (this.distanceXY[id].x > 0) {
 			this.carousel.previous();
 		} else {
-			this.carousel.next(); 
+			this.carousel.next();
 		}
 
 	} else {
@@ -204,15 +249,34 @@ PandaCarouselSwipePlugin.prototype.endDraw = function(eventObject, id) {
 
 	}
 
+	// Reset the offset
+	this.renderOffset(0);
+	this.carousel.removeClass('pandacarousel-swipe-swiping');
+
 	// End this touch
 	delete this.distanceXY[id];
+
+};
+
+// Modify each page's styles so that they are as before we started
+PandaCarouselSwipePlugin.prototype.resetOriginalStyles = function() {
+
+	// Put all the original styles back
+	for (var e = this.pageElements.length - 1; e >= 0; e--) {
+		this.pageElements[e].style.marginLeft = this.pageElementsOriginalStyles['marginLeft'][e];
+	}
+
+	// Change the carousel styles back
+	this.carousel.removeClass('pandacarousel-swipe');
 
 };
 
 PandaCarouselSwipePlugin.prototype.destroy = function() {
 
 	this.carousel.removeEventListener("predestroy", this.preDestroyEventId);
-	this.carousel.removeClass('pandacarousel-swipe');
+
+	// Undo our style changes
+	this.resetOriginalStyles();
 
 	// Remove all the event listeners
 	var listener;
@@ -221,5 +285,5 @@ PandaCarouselSwipePlugin.prototype.destroy = function() {
 		listener[0].removeEventListener(listener[1], listener[2]);
 
 	};
-	
+
 };
