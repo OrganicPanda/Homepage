@@ -188,13 +188,8 @@ PandaCarouselSwipePlugin.prototype.endDraw = function(eventObject, id) {
 	// Did we move enough?
 	if (((Math.abs(this.distanceXY[id].x) / this.carousel.cacheElementWidth) * 100) > this.swipeSnapPercent) {
 
-		// Yes! Which way was the swipe?
-		// Move in that direction
-		if (this.distanceXY[id].x > 0) {
-			this.carousel.previous();
-		} else {
-			this.carousel.next();
-		}
+		// Yes, go to the nearest page
+		this.carousel.dispatchEvent("gotopagenearestoffset", this.distanceXY[id].x, this.distanceXY[id].y);
 
 	} else {
 

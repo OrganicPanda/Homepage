@@ -10,10 +10,12 @@ function PandaCarouselSlideLayoutPlugin(carousel) {
 	this.postUpdateDimentionsEventId = this.carousel.addEventListener("postupdatedimensions", this.computeOffsetStyles.bind(this));
 	this.renderOffsetEventId = this.carousel.addEventListener("renderoffset", this.render.bind(this));
 	this.renderEventId = this.carousel.addEventListener("render", this.render.bind(this));
+	this.gotoPageNearestOffsetEventId = this.carousel.addEventListener("gotopagenearestoffset", this.gotoPageNearestOffset.bind(this));
 
 	// Init our pages
 	this.pageElements = [];
 	this.pageElementsPixelWidths = [];
+	this.pageElementsPixelOffsets = [];
 	this.pageElementsPercentWidths = [];
 	this.pageElementsPercentOffsets = [];
 	this.pageElementsOriginalStyles = {};
@@ -67,9 +69,17 @@ PandaCarouselSlideLayoutPlugin.prototype.setInitialStyles = function() {
 // Put the page elements where they should be
 PandaCarouselSlideLayoutPlugin.prototype.computeOffsetStyles = function() {
 
+	var e;
+
 	// Collect the width for each page
-	for (var e = 0; e < this.pageElements.length; e++) {
-		this.pageElementsPixelWidths[e] = this.pageElements[e].offsetWidth;
+	// Also record the pixel offset of each
+	var currentPixelWidth = 0;
+	var currentPixelOffset = 0;
+	for (e = 0; e < this.pageElements.length; e++) {
+		currentPixelWidth = this.pageElements[e].offsetWidth;
+		this.pageElementsPixelWidths[e] = currentPixelWidth;
+		this.pageElementsPixelOffsets[e] = currentPixelOffset;
+		currentPixelOffset += currentPixelWidth;
 	}
 
 	// Translate those widths in to percentages based on the current size of the carousel
@@ -104,6 +114,43 @@ PandaCarouselSlideLayoutPlugin.prototype.render = function(carouselOffsetX, caro
 
 };
 
+// Work out which page is closest to the given offset and go there
+PandaCarouselSlideLayoutPlugin.prototype.gotoPageNearestOffset = function(carouselOffsetX, carouselOffsetY) {
+
+	carouselOffsetX = carouselOffsetX || 0;
+	carouselOffsetY = carouselOffsetY || 0;
+
+	// Work out where we want to be
+	var currentPageOffset = this.pageElementsPixelOffsets[this.carousel.currentPage];
+	var target = currentPageOffset + -carouselOffsetX;
+
+	// Find the closest thing to that point
+	// There's probably a better way to write this loop but it works!
+	if (this.pageElementsPixelOffsets.length > 0) {
+		var previousDiff = Math.abs(this.pageElementsPixelOffsets[0] - target);
+		var thisDiff;
+		for (var e = 1; e < this.pageElements.length; e++) {
+			thisDiff = Math.abs(this.pageElementsPixelOffsets[e] - target);
+
+			if (previousDiff > thisDiff) {
+				if (this.pageElements[e + 1]) {
+					// Getting closer so try again
+					previousDiff = thisDiff;
+				} else {
+					// Last one so take it
+					this.carousel.gotoPage(e);
+					break;
+				}
+			} else {
+				// The previous one was closer
+				this.carousel.gotoPage(e - 1);
+				break;
+			}
+		}
+	}
+
+};
+
 // Modify each page's styles so that they are as before we started
 PandaCarouselSlideLayoutPlugin.prototype.resetOriginalStyles = function() {
 
@@ -128,6 +175,7 @@ PandaCarouselSlideLayoutPlugin.prototype.destroy = function() {
 	this.carousel.removeEventListener("postupdatedimensions", this.postUpdateDimentionsEventId);
 	this.carousel.removeEventListener("renderoffset", this.renderOffsetEventId);
 	this.carousel.removeEventListener("render", this.renderEventId);
+	this.carousel.removeEventListener("gotopagenearestoffset", this.gotoPageNearestOffsetEventId);
 
 	// Undo our style changes
 	this.resetOriginalStyles();
