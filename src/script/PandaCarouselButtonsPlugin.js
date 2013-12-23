@@ -6,19 +6,21 @@ function PandaCarouselButtonsPlugin(carousel) {
 	// The buttons may already exist
 	this.previousButton = this.carousel.options.previousButton || null;
 	this.nextButton = this.carousel.options.nextButton || null;
-	
+	this.createdThePreviousButton = false;
+	this.createdTheNextButton = false;
+
 	// Add the buttons if required
 	this.addButtons();
-	
+
 	// Set up any DOM events the buttons may need
 	this.listeners = [];
 	this.initEvents();
-	
+
 	// Set up some listeners
 	this.preDestroyEventId = this.carousel.addEventListener("predestroy", this.destroy.bind(this));
 	this.postGotoPageEventId = this.carousel.addEventListener("postgotopage", this.updateButtons.bind(this));
 	this.postSetPageCountEventId = this.carousel.addEventListener("postsetpagecount", this.updateButtons.bind(this));
-	
+
 }
 
 // Create and add the buttons if required
@@ -30,6 +32,7 @@ PandaCarouselButtonsPlugin.prototype.addButtons = function() {
 		this.previousButton.className = 'previous';
 		this.previousButton.innerHTML = 'Previous';
 		this.carousel.element.parentNode.appendChild(this.previousButton);
+		this.createdThePreviousButton = true;
 	}
 
 	if (!this.nextButton) {
@@ -37,6 +40,7 @@ PandaCarouselButtonsPlugin.prototype.addButtons = function() {
 		this.nextButton.className = 'next';
 		this.nextButton.innerHTML = 'Next';
 		this.carousel.element.parentNode.appendChild(this.nextButton);
+		this.createdTheNextButton = true;
 	}
 
 };
@@ -45,8 +49,12 @@ PandaCarouselButtonsPlugin.prototype.addButtons = function() {
 PandaCarouselButtonsPlugin.prototype.removeButtons = function() {
 
 	// You should also remove the events!
-	this.previousButton.parentNode.removeChild(this.previousButton);
-	this.nextButton.parentNode.removeChild(this.nextButton);
+	if (this.createdThePreviousButton) {
+		this.previousButton.parentNode.removeChild(this.previousButton);
+	}
+	if (this.createdTheNextButton) {
+		this.nextButton.parentNode.removeChild(this.nextButton);
+	}
 
 	this.previousButton = null;
 	this.nextButton = null;
@@ -57,23 +65,15 @@ PandaCarouselButtonsPlugin.prototype.removeButtons = function() {
 PandaCarouselButtonsPlugin.prototype.updateButtons = function() {
 
 	if (this.carousel.canGoPrevious()) {
-
 		this.carousel.addClass('pandacarousel-with-previous');
-
 	} else {
-
 		this.carousel.removeClass('pandacarousel-with-previous');
-
 	}
 
 	if (this.carousel.canGoNext()) {
-
 		this.carousel.addClass('pandacarousel-with-next');
-
 	} else {
-
 		this.carousel.removeClass('pandacarousel-with-next');
-
 	}
 
 };
@@ -95,7 +95,7 @@ PandaCarouselButtonsPlugin.prototype.destroy = function() {
 	this.carousel.removeEventListener("predestroy", this.preDestroyEventId);
 	this.carousel.removeEventListener("postgotopage", this.postGotoPageEventId);
 	this.carousel.removeEventListener("postsetpagecount", this.postSetPageCountEventId);
-	
+
 	// Remove all the DOM event listeners
 	var listener;
 	while (listener = this.listeners.pop()) {
@@ -103,13 +103,13 @@ PandaCarouselButtonsPlugin.prototype.destroy = function() {
 		listener[0].removeEventListener(listener[1], listener[2]);
 
 	}
-	
+
 	// Remove the buttons
 	this.removeButtons();
-	
+
 	// Remove our reference to the PandaCarousel instance
 	this.carousel.removeClass('pandacarousel-with-previous');
 	this.carousel.removeClass('pandacarousel-with-next');
 	this.carousel = null;
-	
+
 };

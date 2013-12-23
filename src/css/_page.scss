@@ -16,7 +16,7 @@ $background-color: #ededed;
 	@mixin constrain-content($left, $right) {
 		.site-header, .site-nav, .site-footer,
 		h1, h2, h3, h3, h5, h6,
-		p, ol, ul, blockquote, pre {
+		p, ol, ul, blockquote, pre.code[class*="language-"] {
 			margin-left: $left;
 			margin-right: $right;
 		}

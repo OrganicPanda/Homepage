@@ -9,9 +9,7 @@ categories: experiments
 
 <h2>Demo</h2>
 
-<link href="/css/Experiment.PandaCarousel.css" rel="stylesheet">
-<link href="/css/prism.css" rel="stylesheet">
-
+{% capture attribute_name %}
 <div id="gallery" class="gallery">
 	<img alt="Eye Glasses" src="/image/ExperimentPandaCarousel/1.jpg" />
 	<img alt="Three Cyclists" src="/image/ExperimentPandaCarousel/2.jpg" />
@@ -29,14 +27,21 @@ categories: experiments
 	<img alt="Skateboard" src="/image/ExperimentPandaCarousel/14.jpg" />
 </div>
 
-<section class="pandacarousel-buttons">
-	<button id="gallery-create" class="previous">Create</button>
-	<button id="gallery-destroy" class="next">Destroy</button>
+<section class="gallery-buttons">
+	<button id="gallery-previous" class="previous">Previous</button>
+	<button id="gallery-next" class="next">Next</button>
+	<button id="gallery-create" class="create">Create</button>
+	<button id="gallery-destroy" class="destroy">Destroy</button>
 </section>
+{% endcapture %}
+{{ attribute_name }}
 
-<pre class="language-css">p { color: red }
-p { color: red }
-</pre>
+<pre class="code language-javascript"><code>var boo = 'foo';</code></pre>
+<pre class="code language-markup"><code>{{ attribute_name | trim | xml_escape }}</code></pre>
+
+<!-- CSS -->
+<link href="/css/Experiment.PandaCarousel.css" rel="stylesheet">
+<link href="/css/prism.css" rel="stylesheet">
 
 <!-- Polyfills -->
 <script src="/script/RequestAnimationFrame.js"></script>

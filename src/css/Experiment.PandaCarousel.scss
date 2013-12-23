@@ -49,23 +49,25 @@
 	transition: left 0.2s ease;
 }
 
-.pandacarousel-buttons {
+.gallery-buttons {
 	margin-left: 10%;
 	margin-right: 20%;
 	margin-top: 1em;
 }
 
-.pandacarousel-buttons .previous, .pandacarousel-buttons .next {
+.gallery-buttons .previous, .gallery-buttons .next,
+.gallery-buttons .create, .gallery-buttons .destroy {
 	width: 19%;
 	padding-left: 0;
 	padding-right: 0;
 	margin: 0;
 }
 
-.pandacarousel-buttons .previous {
-	margin-left: 30%;
-	margin-right: 2%;
+.gallery-buttons .previous, .gallery-buttons .next,
+.gallery-buttons .create, .gallery-buttons .destroy {
+	margin-left: 2%;
 }
-.pandacarousel-buttons .previous {
-	margin-right: 2%;
+
+.gallery-buttons .previous {
+	margin-left: 9%;
 }

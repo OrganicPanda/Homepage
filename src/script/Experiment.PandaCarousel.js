@@ -4,18 +4,18 @@ window.onload = function() {
 
 	var createGalleryCarousel = function() {
 
-		galleryCarousel = new PandaCarousel(document.getElementById('gallery'), {
-			//childrenPerPage : 4,
-			// previousButton : document.getElementById('gallery-previous'),
-			// nextButton : document.getElementById('gallery-next'),
-			plugins : [
-				PandaCarouselSwipePlugin,
-				PandaCarouselButtonsPlugin,
-				//PandaCarouselBasicLayoutPlugin
-				PandaCarouselSlideLayoutPlugin,
-				PandaCarouselResizePlugin
-			]
-		});
+		if (!galleryCarousel) {
+			galleryCarousel = new PandaCarousel(document.getElementById('gallery'), {
+				previousButton : document.getElementById('gallery-previous'),
+				nextButton : document.getElementById('gallery-next'),
+				plugins : [
+					PandaCarouselSwipePlugin,
+					PandaCarouselButtonsPlugin,
+					PandaCarouselSlideLayoutPlugin,
+					PandaCarouselResizePlugin
+				]
+			});
+		}
 
 	};
 
@@ -31,7 +31,7 @@ window.onload = function() {
 		}
 
 	});
-	
+
 	createGalleryCarousel();
 
 };
