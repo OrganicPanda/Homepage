@@ -72,9 +72,12 @@ module.exports = function(grunt) {
         files: ['<%= meta.srcPath %>/**/*.scss'],
         tasks: ['compass']
       },
+      js: {
+        files: ['<%= meta.srcPath %>/**/*.js'],
+        tasks: ['jshint', 'copy']
+      },
       assets: {
         files: [
-          '<%= meta.srcPath %>/**/*.js',
           '<%= meta.srcPath %>/**/*.css',
           '<%= meta.srcPath %>image/**/*.*'
         ],
@@ -143,7 +146,7 @@ module.exports = function(grunt) {
 
   // Create aliases
   grunt.registerTask('server', ['devserver']);
-  grunt.registerTask('build', ['jekyll', 'compass', 'copy']);
+  grunt.registerTask('build', ['jshint', 'jekyll', 'compass', 'copy']);
   grunt.registerTask('deploy', ['build', 's3']);
   grunt.registerTask('default', ['build', 'watch']);
 };
