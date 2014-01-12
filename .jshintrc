@@ -1,0 +1,18 @@
+{
+    // See http://jshint.com/docs/options/
+    // Or https://github.com/jshint/jshint/blob/master/examples/.jshintrc
+
+    "quotmark": "single",
+    "indent": 2,
+    "devel": false,
+    "laxcomma": true,
+    "maxlen": 80,
+    "globals": {
+        "module": true,
+        "PandaCarousel": true,
+        "PandaCarouselSwipePlugin": true,
+        "PandaCarouselButtonsPlugin": true,
+        "PandaCarouselSlideLayoutPlugin": true,
+        "PandaCarouselResizePlugin": true
+    }
+}
