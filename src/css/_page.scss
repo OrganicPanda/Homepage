@@ -100,6 +100,11 @@ $background-color: #ededed;
   .date + p, h1 + p { margin-top: 4em; }
   h1 + .date { margin-top: 1.5em; }
 
+  code[class*="language-"], pre[class*="language-"] {
+    font-size: 85%;
+    line-height: 1.1;
+  }
+
   @include constrain-content($gutter, $gutter);
 
   .site-header {
@@ -120,7 +125,7 @@ $background-color: #ededed;
     line-height: 1em;
     text-align: left;
     color: $primary-color;
-      text-decoration: none;
+    text-decoration: none;
   }
 
   /* Insert the logo in such a way that it scales with the size of the header text.

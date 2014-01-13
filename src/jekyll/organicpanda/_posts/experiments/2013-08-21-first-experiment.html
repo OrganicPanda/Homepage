@@ -8,43 +8,50 @@ categories: experiments
 
 <h2>Demo</h2>
 
-{% capture attribute_name %}
-<div id="gallery" class="gallery">
-  <img alt="Eye Glasses" src="/image/ExperimentPandaCarousel/1.jpg" />
-  <img alt="Three Cyclists" src="/image/ExperimentPandaCarousel/2.jpg" />
-  <img alt="Two Shadows" src="/image/ExperimentPandaCarousel/3.jpg" />
-  <img alt="Brighton Bandstand" src="/image/ExperimentPandaCarousel/4.jpg" />
-  <img alt="Volks Electric Railway Station" src="/image/ExperimentPandaCarousel/5.jpg" />
-  <img alt="View over Preston Park" src="/image/ExperimentPandaCarousel/6.jpg" />
-  <img alt="Rainbow" src="/image/ExperimentPandaCarousel/7.jpg" />
-  <img alt="Two Ducks" src="/image/ExperimentPandaCarousel/8.jpg" />
-  <img alt="South Downs View" src="/image/ExperimentPandaCarousel/9.jpg" />
-  <img alt="Steve Selfie" src="/image/ExperimentPandaCarousel/10.jpg" />
-  <img alt="Brighton Beach" src="/image/ExperimentPandaCarousel/11.jpg" />
-  <img alt="Single track country cycling" src="/image/ExperimentPandaCarousel/12.jpg" />
-  <img alt="South Downs from below" src="/image/ExperimentPandaCarousel/13.jpg" />
-  <img alt="Skateboard" src="/image/ExperimentPandaCarousel/14.jpg" />
-</div>
-
-<section class="gallery-buttons">
-  <button id="gallery-previous" class="previous">Previous</button>
-  <button id="gallery-next" class="next">Next</button>
-  <button id="gallery-create" class="create">Create</button>
-  <button id="gallery-destroy" class="destroy">Destroy</button>
-</section>
-{% endcapture %}
-{{ attribute_name }}
-
-<pre class="code language-javascript"><code>var boo = 'foo';</code></pre>
-<pre class="code language-markup"><code>{{ attribute_name | trim | xml_escape }}</code></pre>
-
-<!-- CSS -->
-<link href="/css/Experiment.PandaCarousel.css" rel="stylesheet">
-<link href="/css/prism.css" rel="stylesheet">
-
 <!-- Polyfills -->
 <script src="/script/RequestAnimationFrame.js"></script>
 <script src="/script/Function.bind.js"></script>
+
+<script>
+{% capture gallery_js %}
+window.onload = function() {
+  'use strict';
+
+  var galleryCarousel
+    , createButton = document.getElementById('gallery-create')
+    , destroyButton = document.getElementById('gallery-destroy')
+    , createGalleryCarousel = function() {
+        if (!galleryCarousel) {
+          galleryCarousel = new PandaCarousel(document.getElementById('gallery'), {
+            previousButton : document.getElementById('gallery-previous'),
+            nextButton : document.getElementById('gallery-next'),
+            plugins : [
+              PandaCarouselSwipePlugin,
+              PandaCarouselButtonsPlugin,
+              PandaCarouselSlideLayoutPlugin,
+              PandaCarouselResizePlugin
+            ]
+          });
+        }
+      };
+
+  createButton.addEventListener('click', createGalleryCarousel);
+  destroyButton.addEventListener('click', function() {
+    if (galleryCarousel) {
+      galleryCarousel.destroy();
+      galleryCarousel = null;
+    }
+  });
+
+  createGalleryCarousel();
+};
+{% endcapture %}
+{{ gallery_js }}
+</script>
+
+{% capture gallery_html %}
+<!-- CSS -->
+<link href="/css/Experiment.PandaCarousel.css" rel="stylesheet">
 
 <!-- Any plugins you want to use -->
 <script src="/script/PandaCarouselSwipePlugin.js"></script>
@@ -55,6 +62,35 @@ categories: experiments
 
 <!-- And the library itself -->
 <script src="/script/PandaCarousel.f84afb0d0c2bc469344b36b358cc5c1c2ff5f7a9.js"></script>
-<script src="/script/Experiment.PandaCarousel.js"></script>
 
+<div id="gallery" class="gallery">
+  <img alt="Eye Glasses" src="/image/ExperimentPandaCarousel/1.jpg" />
+  <img alt="Three Cyclists" src="/image/ExperimentPandaCarousel/2.jpg" />
+  <img alt="Two Shadows" src="/image/ExperimentPandaCarousel/3.jpg" />
+  <img alt="Brighton Bandstand" src="/image/ExperimentPandaCarousel/4.jpg" />
+  <img alt="Volks" src="/image/ExperimentPandaCarousel/5.jpg" />
+  <img alt="Preston Park" src="/image/ExperimentPandaCarousel/6.jpg" />
+  <img alt="Rainbow" src="/image/ExperimentPandaCarousel/7.jpg" />
+  <img alt="Two Ducks" src="/image/ExperimentPandaCarousel/8.jpg" />
+  <img alt="South Downs View" src="/image/ExperimentPandaCarousel/9.jpg" />
+  <img alt="Steve Selfie" src="/image/ExperimentPandaCarousel/10.jpg" />
+  <img alt="Brighton Beach" src="/image/ExperimentPandaCarousel/11.jpg" />
+  <img alt="Country cycling" src="/image/ExperimentPandaCarousel/12.jpg" />
+  <img alt="South Downs" src="/image/ExperimentPandaCarousel/13.jpg" />
+  <img alt="Skateboard" src="/image/ExperimentPandaCarousel/14.jpg" />
+</div>
+
+<section class="gallery-buttons">
+  <button id="gallery-previous" class="previous">Previous</button>
+  <button id="gallery-next" class="next">Next</button>
+  <button id="gallery-create" class="create">Create</button>
+  <button id="gallery-destroy" class="destroy">Destroy</button>
+</section>
+{% endcapture %}
+{{ gallery_html }}
+
+<pre class="code language-javascript"><code>{{ gallery_js | trim | xml_escape }}</code></pre>
+<pre class="code language-markup"><code>{{ gallery_html | trim | xml_escape }}</code></pre>
+
+<link href="/css/prism.css" rel="stylesheet">
 <script src="/script/prism.js"></script>
