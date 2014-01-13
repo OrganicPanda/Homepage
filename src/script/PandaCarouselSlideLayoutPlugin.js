@@ -10,7 +10,9 @@ function PandaCarouselSlideLayoutPlugin(carousel) {
     'predestroy', this.destroy.bind(this)
   );
   this.postGotoPageEventId = this.carousel.addEventListener(
-    'postgotopage', this.render.bind(this)
+    'postgotopage', (function() {
+      this.render();
+    }).bind(this)
   );
   this.postUpdateDimentionsEventId = this.carousel.addEventListener(
     'postupdatedimensions', this.computeOffsetStyles.bind(this)
