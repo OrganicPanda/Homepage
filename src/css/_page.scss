@@ -11,12 +11,27 @@ $background-color: #ededed;
 
 /* Set up some base SASS functionality */
   @mixin constrain-content($left, $right) {
-    .site-header, .site-nav, .site-footer,
     h1, h2, h3, h3, h5, h6,
     p, ol, ul, blockquote, pre.code[class*="language-"] {
       margin-left: $left;
       margin-right: $right;
     }
+  }
+
+  * {
+    transition:
+      font-size 0.2s ease-in,
+      padding 0.2s ease-in,
+      margin 0.2s ease-in,
+      background-color 0.2s ease-in,
+      color 0.2s ease-in,
+      transform 0.2s ease-in;
+  }
+
+  *, *::after, *::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
 
 /*
@@ -34,57 +49,44 @@ $background-color: #ededed;
   }
 
   body {
-    background: $background-color;
+    background-color: $background-color;
+    //font: normal 100%/1.4 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
     font: normal 100%/1.4 Georgia, 'Times New Roman', serif;
     color: $primary-color;
-    margin-top: $gutter;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    line-height: 1.25;
-    margin-bottom: 1.4em;
-    font-weight: normal;
+  /* The font scale starts large and very quickly decreases */
+  @media screen and (min-width: 250px) { body { font-size: 5vw; } }
+  @media screen and (min-width: 350px) { body { font-size: 4vw; } }
+  @media screen and (min-width: 400px) { body { font-size: 3.5vw; } }
+  @media screen and (min-width: 500px) { body { font-size: 3.25vw; } }
+  @media screen and (min-width: 750px) { body { font-size: 2.75vw; } }
+  @media screen and (min-width: 1000px) { body { font-size: 2.5vw; } }
+  @media screen and (min-width: 1250px) { body { font-size: 2vw; } }
+  @media screen and (min-width: 1500px) { body { font-size: 1.75vw; } }
+  @media screen and (min-width: 1750px) { body { font-size: 1.5vw; } }
+
+  @include constrain-content($gutter, $gutter);
+
+  @media screen and (min-width: 750px) {
+    @include constrain-content($gutter * 3, $gutter * 3);
   }
+
+  @media screen and (min-width: 1250px) {
+    @include constrain-content($gutter * 4, $gutter * 4);
+  }
+
+  h1, h2, h3, h4, h5, h6 {}
 
   h1 {
-    margin-top: 3em;
-    margin-bottom: 0.5em;
-    line-height: 1.125em;
-    font-size: 1.8em;
     text-align: center;
   }
 
-  h2 {
-    line-height: 1.2em;
-    margin-top: 1.4em;
-    margin-bottom: 0.7em;
-    font-size: 1.6em;
-  }
-
-  p, ol, ul, blockquote {
-    line-height: 1.5;
-    margin-top: 0;
-    margin-bottom: 1.5em;
-  }
+  p, ol, ul, blockquote {}
 
   p {
     text-align: justify;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    -ms-hyphens: auto;
-    -o-hyphens: auto;
     hyphens: auto;
-  }
-
-  button {
-    color: #444;
-    border: 0.1em solid #999;
-    background-color: #E6E6E6;
-    text-decoration: none;
-    border-radius: 0.2em;
-  }
-  button:hover, button:focus {
-    background-color: lighten(#E6E6E6, 20);
   }
 
   .date, .copyright {
@@ -93,39 +95,36 @@ $background-color: #ededed;
   }
 
   .copyright {
-    margin-top: 6em;
     font-size: 0.8em;
   }
 
-  .date + p, h1 + p { margin-top: 4em; }
-  h1 + .date { margin-top: 1.5em; }
-
-  code[class*="language-"], pre[class*="language-"] {
-    font-size: 85%;
-    line-height: 1.1;
+  .site-header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    font-size: 150%;
   }
 
-  @include constrain-content($gutter, $gutter);
-
-  .site-header {
-    text-align: center;
-    margin-bottom: $gutter;
+  @media screen and (min-width: 500px) {
+    .site-header {
+      font-size: 80%;
+      background-color: $primary-color;
+      padding-bottom: 0;
+    }
   }
 
   /* Simple header text (including some bits we need to position the logo) */
   .site-header a {
     display: inline-block;
-    margin: 0;
-    padding: 0;
-    font-family: 'BebasNeueRegular';
-    font-size: 2em;
-    font-weight: normal;
-    font-style: normal;
-    letter-spacing: -0.02em;
-    line-height: 1em;
     text-align: left;
     color: $primary-color;
-    text-decoration: none;
+  }
+
+  @media screen and (min-width: 500px) {
+    .site-header a {
+      color: lighten($primary-color, 90);
+      transform: rotate(360deg);
+    }
   }
 
   /* Insert the logo in such a way that it scales with the size of the header text.
@@ -140,19 +139,26 @@ $background-color: #ededed;
     background-size: contain;
   }
 
+  .site-header a, .site-nav a {
+    font-family: 'BebasNeueRegular';
+    font-size: 2em;
+    letter-spacing: -0.02em;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+  }
+
   /* Simple default nav style */
   .site-nav {
-    margin-bottom: $gutter;
-    font-family: 'BebasNeueRegular';
+    background-color: $primary-color;
   }
+
   .site-nav a {
     display: block;
     text-align: center;
-    text-decoration: none;
     color: lighten($primary-color, 90);
     background-color: $primary-color;
     padding: 0.5em 0;
-    @include transition(background-color 0.1s ease-in-out);
   }
   .site-nav a:focus,
   .site-nav a:hover {
@@ -163,15 +169,15 @@ $background-color: #ededed;
     background-color: lighten($primary-color, 20);
   }
 
-/*  Start enriching things with media queries.
-  Using http://trentwalton.com/ as a text-size guide here.
-  Modified to stick to a 12.5% for every 12.5em rhythm */
-  @media screen and (min-width: 25em) {
-    /*  Move the nav items inline
-      Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css */
+  @media screen and (min-width: 500px) {
+    //  Move the nav items inline
+    //  Clearfix from HTML5BP: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
     .site-nav a {
       float: left;
-      width: 33.33333%;
+      width: calc(100% / 3);
+    }
+    .site-nav a:last-child {
+      float: right; // iOS has rounding issues
     }
     .site-nav:before, .site-nav:after {
       content: " ";
@@ -179,32 +185,5 @@ $background-color: #ededed;
     }
     .site-nav:after {
       clear: both;
-    }
-  }
-
-  @media screen and (min-width: 37.5em) {
-    body {
-      font-size: 112.5%;
-    }
-  }
-
-  @media screen and (min-width: 50em) {
-    body {
-      font-size: 125%;
-    }
-
-    /* Going for 'Page Harmony' as described here: http://retinart.net/graphic-design/secret-law-of-page-harmony/ */
-    @include constrain-content($gutter * 2, $gutter * 4);
-  }
-
-  @media screen and (min-width: 62.5em) {
-    body {
-      font-size: 137.5%;
-    }
-  }
-
-  @media screen and (min-width: 75em) {
-    body {
-      font-size: 150%;
     }
   }
