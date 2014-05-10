@@ -24,10 +24,13 @@
   },
   "devDependencies": {
     "jasmine-node": "~1.14.3",
-    "shelljs": "~0.3.0"
+    "shelljs": "~0.3.0",
+    "rewire": "~2.0.0"
   },
   "dependencies": {
     "logfmt": "~1.1.2",
-    "express": "~4.1.2"
+    "express": "~4.1.2",
+    "marked": "~0.3.2",
+    "ejs": "~1.0.0"
   }
 }
