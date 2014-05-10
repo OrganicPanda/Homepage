@@ -1,9 +1,0 @@
-name: OrganicPanda
-author: Steve Thomson
-description: The home of OrganicPanda
-url: http://pnda.io
-markdown: redcarpet
-pygments: false
-permalink: /:categories/:title/
-weinre: false
-weinre_url: http://localhost:8080/target/target-script-min.js#anonymous
