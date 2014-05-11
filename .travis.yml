@@ -1,3 +1,9 @@
 language: node_js
+deploy:
+  provider: heroku
+  app: op-home
+  on: new
+  api_key:
+    secure: OsC6GcojigN39LhyeiPEcEZiI6Qc20NRGh76JG04OdywIv8oYrdWj6dqKgZWIZt/XDE+MpEgol8aUXS60npKqdXdll+ennDRgeNjlj2Fm2hC/3pIUrAR8O7cTtHgVGy2LF2ZA1JBEYuQtj4nQl+OBZvNdYuizv4cGmqD+tHvc4s=
 node_js:
-  - "0.10"
+- "0.10"
