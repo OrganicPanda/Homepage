@@ -9,6 +9,8 @@ app.set('view engine', 'md');
 app.engine('.md', renderer);
 app.use(logfmt.requestLogger());
 
+app.use('/views/test', express.static(__dirname + '/views/test'));
+
 app.get('/', function(req, res) {
   res.render('home', {});
 });
