@@ -1,6 +1,6 @@
 Parent View
 ========
 
-Child view:
+Child x view:
 
 <%- body %>
