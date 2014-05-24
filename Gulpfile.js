@@ -28,13 +28,13 @@ gulp.task('backend', function() {
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   server.start(function() {
-    /*gulp.watch(paths.scripts, function() {
+    gulp.watch(paths.scripts, function() {
       gulp.run('scripts');
     });
 
     gulp.watch(paths.views, function() {
       gulp.run('views');
-    });*/
+    });
 
     gulp.watch(paths.backend, function() {
       server.restart(function() {
