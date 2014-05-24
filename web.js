@@ -4,12 +4,21 @@ var express = require('express')
   , app = express()
   , port = Number(process.env.PORT || 5000);
 
-app.set('views', __dirname + '/views');
-app.set('view engine', 'md');
-app.engine('.md', renderer);
+// De-junk
+app.disable('x-powered-by');
+
+// Enable Logging
 app.use(logfmt.requestLogger());
 
+// Inject the custom renderer
+app.engine('.md', renderer);
+
+// Mark certain directories as static
 app.use('/views/test', express.static(__dirname + '/views/test'));
+
+app.get('/post/:name', function(req, res) {
+  res.render('post/' + req.params.name + '/index.md');
+});
 
 app.get('/', function(req, res) {
   res.render('home', {});

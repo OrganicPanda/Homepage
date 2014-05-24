@@ -1,7 +1,7 @@
 Homepage
 ========
 
-This is my personal website
+This is my personal websitez
 
 <% include header.html %>
 
