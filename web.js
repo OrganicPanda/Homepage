@@ -17,7 +17,7 @@ app.engine('.md', renderer);
 app.use('/views/test', express.static(__dirname + '/views/test'));
 
 app.get('/post/:name', function(req, res) {
-  res.render('post/' + req.params.name + '/index.md');
+  res.render('post/' + req.params.name + '/index.ejs.md');
 });
 
 app.get('/', function(req, res) {

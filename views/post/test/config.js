@@ -1,3 +1,3 @@
 module.exports = {
-	extend: '../foo.md'
+	extend: '../foo.ejs.md'
 }
