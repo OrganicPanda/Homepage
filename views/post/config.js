@@ -1,10 +1,9 @@
 module.exports = {
-	extend: '../foo.ejs.html',
-	title: 'Child Title',
+	title: 'Parent Title',
 	js: [
 		'./public/js/a.js',
 		'./public/js/b.js',
-		'./public/js/c.js'
+		'./public/js/d.js'
 	],
 	css: [
 		'./public/css/a.css',
