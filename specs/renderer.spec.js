@@ -13,7 +13,7 @@ describe('Renderer', function() {
   });
 
   it('can render an ejs include', function(done) {
-    renderer(fixtureDir + '/includer.md', {}, function(err, str) {
+    renderer(fixtureDir + '/includer.ejs.md', {}, function(err, str) {
       expect(err).toBe(null);
       expect(str).toBe('<p>Foo(included)Bar</p>');
       done();
