@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `panda.sh`,
+    title: `organicpanda`,
     description: `panda.sh`,
     author: `@organicpanda`
   },

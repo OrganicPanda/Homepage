@@ -1,19 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
 
-const colors = {
-  canvas: "#ededed",
-  pandaBackdrop: "#ededed",
-  pandaBody: "#ffffff",
-  pandaLeftEar: "#800080",
-  pandaFace: "#ff9955",
-  pandaRightEar: "#ffdd55",
-  pandaLeftArm: "#ccff00",
-  pandaRightArm: "#a02c2c",
-  pandaLeftFoot: "#8bcfdf",
-  pandaRightFoot: "#88aa00;"
-}
-
 const transitions = css`
   transition-property: top, left;
   transition-duration: 100ms;
@@ -24,7 +11,8 @@ const PandaStyled = styled.div`
   display: inline-block;
   position: relative;
   width: 100%;
-  background: ${colors.pandaBackdrop};
+  background: ${({ theme, background }) =>
+    background || theme.palette.panda.background};
   z-index: 1000;
 
   /* This is a trick to keep the panda square (1:1 aspect) */
@@ -50,7 +38,7 @@ const PandaHeadBodyStyled = styled(PandaPositionedPartStyled)`
   left: 15%;
   width: 85.5%;
   height: 93%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   border-top-left-radius: 45% 63%;
   border-top-right-radius: 59% 65%;
   border-bottom-right-radius: 15% 37%;
@@ -79,7 +67,7 @@ const PandaHeadFaceLeftEyeStyled = styled(PandaPositionedPartStyled)`
   left: 0%;
   width: 42.5%;
   height: 64.5%;
-  background-color: ${colors.pandaFace};
+  background-color: ${({ theme }) => theme.palette.panda.face};
   border-top-left-radius: 51% 57%;
   border-top-right-radius: 58% 49%;
   border-bottom-right-radius: 78% 47%;
@@ -92,7 +80,7 @@ const PandaHeadFaceRightEyeStyled = styled(PandaPositionedPartStyled)`
   left: 72%;
   width: 27%;
   height: 52%;
-  background-color: ${colors.pandaFace};
+  background-color: ${({ theme }) => theme.palette.panda.face};
   border-top-left-radius: 39% 52%;
   border-top-right-radius: 44% 44%;
   border-bottom-right-radius: 30% 47%;
@@ -113,7 +101,7 @@ const PandaHeadFaceNoseMaskStyled = styled(PandaPositionedPartStyled)`
   left: 0%;
   width: 99%;
   height: 80%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   border-bottom-right-radius: 58% 97%;
   border-bottom-left-radius: 33% 60%;
   z-index: 2312;
@@ -123,7 +111,7 @@ const PandaHeadFaceNoseColourStyled = styled(PandaPositionedPartStyled)`
   left: 5%;
   width: 92%;
   height: 80%;
-  background-color: ${colors.pandaFace};
+  background-color: ${({ theme }) => theme.palette.panda.face};
   border-bottom-right-radius: 48% 89%;
   border-bottom-left-radius: 30% 59%;
   transform: rotate(-10deg);
@@ -145,7 +133,7 @@ const PandaHeadLeftEarStyled = styled(PandaPositionedPartStyled)`
 const PandaHeadLeftEarEarStyled = styled.div`
   width: 85%;
   height: 100%;
-  background-color: ${colors.pandaLeftEar};
+  background-color: ${({ theme }) => theme.palette.panda.leftEar};
   border-top-left-radius: 71% 61%;
   border-top-right-radius: 30% 21%;
   border-bottom-right-radius: 50% 79%;
@@ -157,7 +145,7 @@ const PandaHeadLeftEarMaskStyled = styled(PandaPositionedPartStyled)`
   left: 61%;
   width: 26%;
   height: 96.5%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   border-top-left-radius: 58% 40%;
   border-bottom-left-radius: 62% 44%;
   transform: rotate(13deg);
@@ -169,7 +157,7 @@ const PandaHeadRightEarStyled = styled(PandaPositionedPartStyled)`
   left: 64%;
   width: 24.5%;
   height: 60.5%;
-  background-color: ${colors.pandaRightEar};
+  background-color: ${({ theme }) => theme.palette.panda.rightEar};
   border-top-left-radius: 25% 25%;
   border-top-right-radius: 59% 39%;
   border-bottom-right-radius: 68% 57%;
@@ -197,7 +185,7 @@ const PandaTorsoBodyStyled = styled(PandaPositionedPartStyled)`
   left: 25%;
   width: 50.8%;
   height: 75.5%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   border-top-left-radius: 24%;
   border-top-right-radius: 24%;
   border-bottom-right-radius: 45% 60%;
@@ -225,7 +213,7 @@ const PandaTorsoLeftArmTopStyled = styled(PandaPositionedPartStyled)`
   left: 0%;
   width: 76%;
   height: 67.5%;
-  background-color: ${colors.pandaLeftArm};
+  background-color: ${({ theme }) => theme.palette.panda.leftArm};
   border-top-left-radius: 100% 100%;
   border-bottom-right-radius: 100%;
   z-index: 1410;
@@ -235,7 +223,7 @@ const PandaTorsoLeftArmBottomStyled = styled(PandaPositionedPartStyled)`
   left: 0%;
   width: 97%;
   height: 65.5%;
-  background-color: ${colors.pandaLeftArm};
+  background-color: ${({ theme }) => theme.palette.panda.leftArm};
   border-top-left-radius: 23% 48%;
   border-top-right-radius: 72% 52%;
   border-bottom-right-radius: 56% 47%;
@@ -247,7 +235,7 @@ const PandaTorsoLeftArmMaskStyled = styled(PandaPositionedPartStyled)`
   left: 54.5%;
   width: 70%;
   height: 49%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   border-top-left-radius: 29% 50%;
   border-bottom-left-radius: 95% 50%;
   z-index: 1430;
@@ -269,7 +257,7 @@ const PandaTorsoRightArmTopStyled = styled(PandaPositionedPartStyled)`
   left: 37.5%;
   width: 88.5%;
   height: 66.5%;
-  background-color: ${colors.pandaRightArm};
+  background-color: ${({ theme }) => theme.palette.panda.rightArm};
   border-top-left-radius: 20%;
   border-top-right-radius: 80%;
   border-bottom-right-radius: 20%;
@@ -283,7 +271,7 @@ const PandaTorsoRightArmBottomStyled = styled(PandaPositionedPartStyled)`
   left: 52.5%;
   width: 87.5%;
   height: 67.5%;
-  background-color: ${colors.pandaRightArm};
+  background-color: ${({ theme }) => theme.palette.panda.rightArm};
   border-top-left-radius: 25%;
   border-top-right-radius: 74% 58%;
   border-bottom-right-radius: 60% 42%;
@@ -295,7 +283,7 @@ const PandaTorsoRightArmMasktopStyled = styled(PandaPositionedPartStyled)`
   left: 25.5%;
   width: 38%;
   height: 33.5%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   transform: rotate(-29deg);
   border-radius: 10%;
   z-index: 1530;
@@ -306,7 +294,7 @@ const PandaTorsoRightArmMaskbottomStyled = styled(PandaPositionedPartStyled)`
   left: 28.5%;
   width: 50.5%;
   height: 11.5%;
-  background-color: ${colors.pandaBody};
+  background-color: ${({ theme }) => theme.palette.panda.body};
   transform: rotate(-68deg);
   border-radius: 10%;
   z-index: 1540;
@@ -329,7 +317,7 @@ const PandaTorsoLeftFootLeftStyled = styled(PandaPositionedPartStyled)`
   left: 11.5%;
   width: 49.5%;
   height: 105.5%;
-  background-color: ${colors.pandaLeftFoot};
+  background-color: ${({ theme }) => theme.palette.panda.leftFoot};
   transform: rotate(-54deg);
   border-top-left-radius: 54% 38%;
   border-top-right-radius: 56% 44%;
@@ -342,7 +330,7 @@ const PandaTorsoLeftFootMiddleStyled = styled(PandaPositionedPartStyled)`
   left: 35%;
   width: 56.5%;
   height: 86%;
-  background-color: ${colors.pandaLeftFoot};
+  background-color: ${({ theme }) => theme.palette.panda.leftFoot};
   transform: rotate(-40deg);
   border-top-left-radius: 10%;
   border-top-right-radius: 10%;
@@ -355,7 +343,7 @@ const PandaTorsoLeftFootRightStyled = styled(PandaPositionedPartStyled)`
   left: 81.5%;
   width: 16.2%;
   height: 20.5%;
-  background-color: ${colors.pandaLeftFoot};
+  background-color: ${({ theme }) => theme.palette.panda.leftFoot};
   border-radius: 50%;
   z-index: 1130;
 `
@@ -364,7 +352,8 @@ const PandaTorsoLeftFootMasktopStyled = styled(PandaPositionedPartStyled)`
   left: 43.5%;
   width: 11%;
   height: 35.5%;
-  background-color: ${colors.pandaBackdrop};
+  background-color: ${({ theme, background }) =>
+    background || theme.palette.panda.background};
   transform: skew(-50deg, 25deg);
   border-bottom-right-radius: 32%;
   z-index: 1140;
@@ -374,7 +363,8 @@ const PandaTorsoLeftFootMaskbottomStyled = styled(PandaPositionedPartStyled)`
   left: 84%;
   width: 20%;
   height: 29%;
-  background-color: ${colors.pandaBackdrop};
+  background-color: ${({ theme, background }) =>
+    background || theme.palette.panda.background};
   border-top-left-radius: 48% 47%;
   border-top-right-radius: 20%;
   border-bottom-right-radius: 20%;
@@ -400,7 +390,7 @@ const PandaTorsoRightFootLeftStyled = styled(PandaPositionedPartStyled)`
   left: 0%;
   width: 62%;
   height: 78.5%;
-  background-color: ${colors.pandaRightFoot};
+  background-color: ${({ theme }) => theme.palette.panda.rightFoot};
   border-top-left-radius: 61%;
   border-bottom-right-radius: 28%;
   border-bottom-left-radius: 40% 17%;
@@ -412,7 +402,7 @@ const PandaTorsoRightFootRightStyled = styled(PandaPositionedPartStyled)`
   left: 47%;
   width: 47.5%;
   height: 105%;
-  background-color: ${colors.pandaRightFoot};
+  background-color: ${({ theme }) => theme.palette.panda.rightFoot};
   border-top-left-radius: 62% 69%;
   border-top-right-radius: 39% 46%;
   border-bottom-right-radius: 42% 48%;
@@ -424,14 +414,15 @@ const PandaTorsoRightFootMaskStyled = styled(PandaPositionedPartStyled)`
   left: 53%;
   width: 16%;
   height: 20%;
-  background-color: ${colors.pandaBackdrop};
+  background-color: ${({ theme, background }) =>
+    background || theme.palette.panda.background};
   transform: skew(-50deg, 25deg);
   border-bottom-right-radius: 28%;
   z-index: 1230;
 `
 
-const Panda = props => (
-  <PandaStyled>
+const Panda = ({ background }) => (
+  <PandaStyled background={background}>
     <PandaHeadStyled>
       <PandaHeadBodyStyled />
 
@@ -473,14 +464,14 @@ const Panda = props => (
         <PandaTorsoLeftFootLeftStyled />
         <PandaTorsoLeftFootMiddleStyled />
         <PandaTorsoLeftFootRightStyled />
-        <PandaTorsoLeftFootMasktopStyled />
-        <PandaTorsoLeftFootMaskbottomStyled />
+        <PandaTorsoLeftFootMasktopStyled background={background} />
+        <PandaTorsoLeftFootMaskbottomStyled background={background} />
       </PandaTorsoLeftFootStyled>
 
       <PandaTorsoRightFootStyled>
         <PandaTorsoRightFootLeftStyled />
         <PandaTorsoRightFootRightStyled />
-        <PandaTorsoRightFootMaskStyled />
+        <PandaTorsoRightFootMaskStyled background={background} />
       </PandaTorsoRightFootStyled>
     </PandaTorsoStyled>
   </PandaStyled>
