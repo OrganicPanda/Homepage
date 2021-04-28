@@ -63,9 +63,7 @@ const Index = () => {
 
         <HRStyled />
 
-        <NavStyled>
-          <Link to="/2020/">2020</Link>
-        </NavStyled>
+        <NavStyled>{/* <Link to="/2020/">2020</Link> */}</NavStyled>
 
         <ContentStyled>
           <PandaWrapperStyled>
